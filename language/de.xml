@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.module_tagging"><![CDATA[Tagging]]></item>
+		<item name="wcf.acp.option.module_tagging.description"><![CDATA[Aktiviert die Funktion für das Taggen von Inhalten.]]></item>
+	</category>
+	<category name="wcf.acp.package">
+		<item name="wcf.acp.package.step.install.TaggablePip"><![CDATA[Taggable wird installiert ...]]></item>
+		<item name="wcf.acp.package.step.uninstall.TaggablePip"><![CDATA[Taggable wird deinstalliert ...]]></item>
+		<item name="wcf.acp.package.step.update.TaggablePip"><![CDATA[Taggable wird aktualisiert ...]]></item>
+	</category>
+	<category name="wcf.help.item">
+		<item name="wcf.help.item.tagging"><![CDATA[Tags]]></item>
+		<item name="wcf.help.item.tagging.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpTagging1.png" alt="" /><span class="smallFont light">Tagwolke</span></p>
+<p>Tags sind Schlagwörter, die helfen ein Element wie z. B. einen Text oder ein Bild zu beschreiben. Sie können damit schnell sehen, welchen Inhalt ein Text hat oder was auf einem Bild zu sehen ist. Ein weiterer Vorteil ist, dass man nach <a href="index.php?page=TaggedObjects{@SID_ARG_2ND}">Tags suchen</a> kann. Beispielsweise können Sie so schnell alle Bilder mit einer Sonne finden, sofern sie mit dem Tag Sonne verknüpft wurden. In sogenannten Tagwolken werden die Tags groß dargestellt, die am häufigsten verwendet wurden.</p>]]></item>
+	</category>
+	<category name="wcf.tagging">
+		<item name="wcf.tagging.filter"><![CDATA[Filter nach Tag{if $tag|isset}: &raquo;{$tag}&laquo;{/if}]]></item>
+		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>
+		<item name="wcf.tagging.tags.add"><![CDATA[Tags]]></item>
+		<item name="wcf.tagging.tags.add.description"><![CDATA[Mehrere Tags müssen durch ein Komma getrennt werden.]]></item>
+		<item name="wcf.tagging.tags.used"><![CDATA[Verwendete Tags]]></item>
+	</category>
+</language>

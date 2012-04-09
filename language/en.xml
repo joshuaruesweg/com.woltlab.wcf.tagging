@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="en">
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.module_tagging"><![CDATA[Tagging]]></item>
+		<item name="wcf.acp.option.module_tagging.description"><![CDATA[Enables the tagging of content.]]></item>
+	</category>
+	<category name="wcf.acp.package">
+		<item name="wcf.acp.package.step.install.TaggablePip"><![CDATA[Installing taggable ...]]></item>
+		<item name="wcf.acp.package.step.uninstall.TaggablePip"><![CDATA[Uninstalling taggable ...]]></item>
+		<item name="wcf.acp.package.step.update.TaggablePip"><![CDATA[Updating taggable ...]]></item>
+	</category>
+	<category name="wcf.help.item">
+		<item name="wcf.help.item.tagging"><![CDATA[Tags]]></item>
+		<item name="wcf.help.item.tagging.description"><![CDATA[<p class="helpImage border container-4"><img src="{@RELATIVE_WCF_DIR}images/help/helpTagging1.png" alt="" /><span class="smallFont light">Tag cloud</span></p>
+<p>Tags are words that describe and/or categorize elements such as images or a posts. Think of it as a kind of a summary of the content. The advantage is that you can search by <a href="index.php?page=TaggedObjects{@SID_ARG_2ND}">tags</a>, so you don't have to think hard about good search terms. You can easily find all photos with a sun on them if they are tagged with &quot;sun&quot;. So called tag clouds display tags in different sizes, accordig to the quantity of being used, thus tags used more often are displayed larger.</p>]]></item>
+	</category>
+	<category name="wcf.tagging">
+		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: &quot;{$tag}&quot;{/if}]]></item>
+		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>
+		<item name="wcf.tagging.tags.add"><![CDATA[Tags]]></item>
+		<item name="wcf.tagging.tags.add.description"><![CDATA[You can separate multiple tags by commas.]]></item>
+		<item name="wcf.tagging.tags.used"><![CDATA[Used tags]]></item>
+	</category>
+</language>

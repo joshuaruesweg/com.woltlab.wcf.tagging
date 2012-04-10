@@ -15,6 +15,18 @@ use wcf\util\StringUtil;
  */
 class TagCloud {
 	/**
+	 * max font size
+	 * @var integer
+	 */
+	const MAX_FONT_SIZE = 170;
+	
+	/**
+	 * min font size
+	 * @var integer
+	 */
+	const MIN_FONT_SIZE = 85;
+	
+	/**
 	 * list of tags
 	 * @var array<wcf\data\tag\TagCloudTag>
 	 */
@@ -96,14 +108,11 @@ class TagCloud {
 	 * @return	double 				the size to calculate
 	 */
 	private function calculateSize($counter) {
-		$maxSize = 170;
-		$minSize = 85;
-
 		if ($this->maxCounter == $this->minCounter) {
 			return 100;
 		}
 		else {
-			return ($maxSize - $minSize) / ($this->maxCounter - $this->minCounter) * $counter + $minSize - (($maxSize - $minSize) / ($this->maxCounter - $this->minCounter)) * $this->minCounter;
+			return (self::MAX_FONT_SIZE - self::MIN_FONT_SIZE) / ($this->maxCounter - $this->minCounter) * $counter + self::MIN_FONT_SIZE - ((self::MAX_FONT_SIZE - self::MIN_FONT_SIZE) / ($this->maxCounter - $this->minCounter)) * $this->minCounter;
 		}
 	}
 }

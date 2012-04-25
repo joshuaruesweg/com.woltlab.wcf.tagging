@@ -16,7 +16,9 @@ class TypedTagCloudCacheBuilder extends TagCloudCacheBuilder {
 	 * @see wcf\system\cache\builder\CacheBuilder::getData()
 	 */
 	public function getData(array $cacheResource) {
-		list($cache, $this->objectTypeIDs, $this->languageIDs) = explode('-', $cacheResource['cache']);
+		list($cache, $objectTypeIDs, $languageIDs) = explode('-', $cacheResource['cache']);
+		$this->objectTypeIDs = explode(',', $objectTypeIDs);
+		$this->languageIDs = explode(',', $languageIDs);
 		
 		// get tags
 		$this->getTags();

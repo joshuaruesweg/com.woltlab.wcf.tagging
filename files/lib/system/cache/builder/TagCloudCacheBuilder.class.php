@@ -40,7 +40,8 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	 * @see wcf\system\cache\builder\CacheBuilder::getData()
 	 */
 	public function getData(array $cacheResource) {
-		list($cache, $this->languageIDs) = explode('-', $cacheResource['cache']);
+		list($cache, $languageIDs) = explode('-', $cacheResource['cache']);
+		$this->languageIDs = explode(',', $languageIDs);
 		
 		// get all taggable types
 		$objectTypes = ObjectTypeCache::getInstance()->getObjectTypes('com.woltlab.wcf.tagging.taggableObject');

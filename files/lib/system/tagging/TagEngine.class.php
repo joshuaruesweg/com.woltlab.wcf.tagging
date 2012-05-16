@@ -77,4 +77,42 @@ class TagEngine extends SingletonFactory {
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array($object->getTaggable()->getObjectTypeID(), $languageIDs, $object->getObjectID()));
 	}
+	
+	/**
+	 * Returns all tags set for given object.
+	 * 
+	 * @param	string		$objectType
+	 * @param	integer		$objectID
+	 * @param	integer		$languageID
+	 * @return	array<string>
+	 */
+	public function getObjectTags($objectType, $objectID, $languageID = 0) {
+		if ($languageID === null) $languageID = 0;
+		
+		// get object type
+		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
+		
+		// get tags
+		$sql = "SELECT		tag.name
+			FROM		wcf".WCF_N."_tag_to_object tag_to_object
+			LEFT JOIN	wcf".WCF_N."_tag tag
+			ON		(tag.tagID = tag_to_object.tagID)
+			WHERE		tag_to_object.objectTypeID = ?
+					AND tag_to_object.objectID = ?
+					AND tag_to_object.languageID = ?";
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute(array(
+			$objectTypeObj->objectTypeID,
+			$objectID,
+			$languageID
+		));
+		
+		$tags = array();
+		
+		while ($row = $statement->fetchArray()) {
+			$tags[] = $row['name'];
+		}
+		
+		return $tags;
+	}
 }

@@ -10,7 +10,11 @@
 <script type="text/javascript">
 	//<![CDATA[
 	$(function() {
-		new WCF.Tagging.TagList('#tagList{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}', '#tagSearchInput{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}');
+		var $tagList = new WCF.Tagging.TagList('#tagList{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}', '#tagSearchInput{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}');
+		
+		{if $tags|isset && $tags|count}
+			$tagList.load([ {implode from=$tags item=tag}'{$tag}'{/implode} ]);
+		{/if}
 	});
 	//]]>
 </script>

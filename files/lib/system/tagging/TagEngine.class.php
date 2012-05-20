@@ -24,10 +24,28 @@ class TagEngine extends SingletonFactory {
 	 * @param	integer		$objectID
 	 * @param 	array 		$tags
 	 * @param	integer		$languageID
+	 * @param	boolean		$replace
 	 */
-	public function addObjectTags($objectType, $objectID, array $tags, $languageID = 0) {
+	public function addObjectTags($objectType, $objectID, array $tags, $languageID = 0, $replace = true) {
+		if ($languageID === null) $languageID = 0;
+		$tags = array_unique($tags);
+		
 		// get object type
 		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
+		
+		// remove tags prior to apply the new ones (prevents duplicate entries)
+		if ($replace) {
+			$sql = "DELETE FROM	wcf".WCF_N."_tag_to_object
+				WHERE		objectTypeID = ?
+						AND objectID = ?
+						AND languageID = ?";
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute(array(
+					$objectTypeObj->objectTypeID,
+					$objectID,
+					$languageID
+			));
+		}
 		
 		// get tag ids
 		$tagIDs = array();
@@ -46,8 +64,6 @@ class TagEngine extends SingletonFactory {
 			
 			$tagIDs[] = $tagObj->tagID;
 		}
-		$tagIDs = array_unique($tagIDs);
-		if (!count($tagIDs)) return;
 		
 		// save tags
 		$sql = "INSERT INTO	wcf".WCF_N."_tag_to_object

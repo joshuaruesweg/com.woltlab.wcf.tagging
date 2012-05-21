@@ -100,7 +100,7 @@ class TagEngine extends SingletonFactory {
 	 * @param	string		$objectType
 	 * @param	integer		$objectID
 	 * @param	integer		$languageID
-	 * @return	array<string>
+	 * @return	array<wcf\data\tag\Tag>
 	 */
 	public function getObjectTags($objectType, $objectID, $languageID = 0) {
 		if ($languageID === null) $languageID = 0;
@@ -109,7 +109,7 @@ class TagEngine extends SingletonFactory {
 		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
 		
 		// get tags
-		$sql = "SELECT		tag.name
+		$sql = "SELECT		tag.*
 			FROM		wcf".WCF_N."_tag_to_object tag_to_object
 			LEFT JOIN	wcf".WCF_N."_tag tag
 			ON		(tag.tagID = tag_to_object.tagID)
@@ -126,7 +126,7 @@ class TagEngine extends SingletonFactory {
 		$tags = array();
 		
 		while ($row = $statement->fetchArray()) {
-			$tags[] = $row['name'];
+			$tags[$row['tagID']] = new Tag(null, $row);
 		}
 		
 		return $tags;

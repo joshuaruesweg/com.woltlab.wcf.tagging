@@ -1,5 +1,5 @@
 <dl>
-	<dt><label for="tags">{lang}wcf.tagging.tags{/lang}</label></dt>
+	<dt><label for="tagSearchInput{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}">{lang}wcf.tagging.tags{/lang}</label></dt>
 	<dd id="tagList{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}"></dd>
 	<dd>
 		<input id="tagSearchInput{if $tagInputSuffix|isset}{@$tagInputSuffix}{/if}" type="text" value="" class="long" />

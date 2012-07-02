@@ -18,6 +18,8 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 	 * @see	WCF.EditableItemList.init()
 	 */
 	init: function(itemListSelector, searchInputSelector) {
+		this._allowCustomInput = true;
+		
 		this._super(itemListSelector, searchInputSelector);
 		
 		this._data = [ ];
@@ -29,8 +31,11 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 	 */
 	_submit: function() {
 		for (var $i = 0, $length = this._data.length; $i < $length; $i++) {
-			$('<input type="hidden" name="tags[]" value="' + this._data[$i] + '" />').appendTo(this._form);
-		}
+			// deleting items leaves crappy indices
+			if (this._data[$i]) {
+				$('<input type="hidden" name="tags[]" value="' + this._data[$i] + '" />').appendTo(this._form);
+			}
+		};
 	},
 	
 	/**
@@ -56,7 +61,11 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 	 * @see	WCF.EditableItemList.load()
 	 */
 	load: function(data) {
-		this._data = data;
+		if (data && data.length) {
+			for (var $i = 0, $length = data.length; $i < $length; $i++) {
+				this.addItem({ objectID: 0, label: data[$i] });
+			}
+		}
 	}
 });
 

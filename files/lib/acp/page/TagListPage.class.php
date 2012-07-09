@@ -2,6 +2,8 @@
 namespace wcf\acp\page;
 use wcf\page\SortablePage;
 use wcf\system\menu\acp\ACPMenu;
+use wcf\system\WCF;
+use wcf\util\StringUtil;
 
 /**
  * Shows a list of tags.
@@ -35,6 +37,32 @@ class TagListPage extends SortablePage {
 	public $objectListClassName = 'wcf\data\tag\TagList';
 	
 	/**
+	 * search-query
+	 * @var string
+	 */
+	public $search = '';
+	
+	/**
+	 * @see wcf\page\IPage::assignVariables()
+	 */
+	public function assignVariables() {
+		parent::assignVariables();
+		
+		WCF::getTPL()->assign(array(
+			'search' => $this->search
+		));
+	}
+	
+	/**
+	 * @see wcf\page\IPage::readParameters()
+	 */
+	public function readParameters() {
+		parent::readParameters();
+		
+		if (isset($_REQUEST['search'])) $this->search = StringUtil::trim($_REQUEST['search']);
+	}
+	
+	/**
 	 * @see	wcf\page\MultipleLinkPage::initObjectList()
 	 */
 	protected function initObjectList() {
@@ -42,6 +70,9 @@ class TagListPage extends SortablePage {
 		
 		$this->objectList->sqlSelects = "(SELECT COUNT(*) FROM wcf".WCF_N."_tag_to_object t2o WHERE t2o.tagID = tag.tagID) AS usageCount, language.languageName, language.languageCode";
 		$this->objectList->sqlJoins = "LEFT JOIN wcf".WCF_N."_language language ON tag.languageID = language.languageID";
+		if ($this->search !== '') {
+			$this->objectList->getConditionBuilder()->add('tag.name LIKE ?', array($this->search.'%'));
+		}
 	}
 	
 	/**

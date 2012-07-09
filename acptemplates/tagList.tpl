@@ -15,7 +15,7 @@
 </header>
 
 <div class="contentNavigation">
-	{pages print=true assign=pagesLinks controller="TaglList" link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder"}
+	{pages print=true assign=pagesLinks controller="TaglList" link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder&search=$search"}
 	
 	{if $__wcf->session->getPermission('admin.content.tag.canAddTag')}
 		<nav>
@@ -35,10 +35,10 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="columnID columnTagID{if $sortField == 'tagID'} active{/if}" colspan="2"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=tagID&sortOrder={if $sortField == 'tagID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}{if $sortField == 'tagID'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnTitle columnName{if $sortField == 'name'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=name&sortOrder={if $sortField == 'name' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.tag.name{/lang}{if $sortField == 'name'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnNumber columnUsageCount{if $sortField == 'usageCount'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=usageCount&sortOrder={if $sortField == 'usageCount' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.tag.usageCount{/lang}{if $sortField == 'usageCount'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
-					<th class="columnText columnLanguage{if $sortField == 'language'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=language&sortOrder={if $sortField == 'language' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.tag.language{/lang}{if $sortField == 'language'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnID columnTagID{if $sortField == 'tagID'} active{/if}" colspan="2"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=tagID&sortOrder={if $sortField == 'tagID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}&search={@$search|rawurlencode}{/link}">{lang}wcf.global.objectID{/lang}{if $sortField == 'tagID'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnTitle columnName{if $sortField == 'name'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=name&sortOrder={if $sortField == 'name' && $sortOrder == 'ASC'}DESC{else}ASC{/if}&search={@$search|rawurlencode}{/link}">{lang}wcf.acp.tag.name{/lang}{if $sortField == 'name'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnNumber columnUsageCount{if $sortField == 'usageCount'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=usageCount&sortOrder={if $sortField == 'usageCount' && $sortOrder == 'ASC'}DESC{else}ASC{/if}&search={@$search|rawurlencode}{/link}">{lang}wcf.acp.tag.usageCount{/lang}{if $sortField == 'usageCount'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
+					<th class="columnText columnLanguage{if $sortField == 'language'} active{/if}"><a href="{link controller='TagList'}pageNo={@$pageNo}&sortField=language&sortOrder={if $sortField == 'language' && $sortOrder == 'ASC'}DESC{else}ASC{/if}&search={@$search|rawurlencode}{/link}">{lang}wcf.acp.tag.language{/lang}{if $sortField == 'language'} <img src="{@$__wcf->getPath()}icon/sort{@$sortOrder}.svg" alt="" />{/if}</a></th>
 					
 					{event name='headColumns'}
 				</tr>

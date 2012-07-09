@@ -62,7 +62,7 @@ class TagEngine extends SingletonFactory {
 				));
 			}
 			
-			$tagIDs[] = $tagObj->tagID;
+			$tagIDs[$tagObj->tagID] = $tagObj->tagID;
 		}
 		
 		// save tags

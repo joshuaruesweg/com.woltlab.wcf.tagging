@@ -50,7 +50,7 @@
 						<tr class="jsTagRow">
 							<td class="columnIcon">
 								{if $__wcf->session->getPermission('admin.content.tag.canEditTag')}
-									<a href="{link controller='LabelEdit' id=$label->labelID}{/link}"><img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 jsTooltip" /></a>
+									<a href="{link controller='TagEdit' id=$tag->tagID}{/link}"><img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 jsTooltip" /></a>
 								{else}
 									<img src="{@$__wcf->getPath()}icon/edit.svg" alt="" title="{lang}wcf.global.button.edit{/lang}" class="icon16 disabled" />
 								{/if}

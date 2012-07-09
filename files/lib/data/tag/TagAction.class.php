@@ -22,6 +22,17 @@ class TagAction extends AbstractDatabaseObjectAction {
 	protected $className = 'wcf\data\tag\TagEditor';
 	
 	/**
+	 * @see \wcf\data\AbstractDatabaseObjectAction::$permissionsDelete
+	 */
+	protected $permissionsDelete = array('admin.content.tag.canDeleteTag');
+	
+	/**
+	 * @see \wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
+	 */
+	protected $permissionsUpdate = array('admin.content.tag.canEditTag');
+	
+	
+	/**
 	 * Validates parameters to search for tags.
 	 */
 	public function validateGetList() {

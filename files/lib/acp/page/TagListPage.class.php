@@ -68,8 +68,13 @@ class TagListPage extends SortablePage {
 	protected function initObjectList() {
 		parent::initObjectList();
 		
-		$this->objectList->sqlSelects = "(SELECT COUNT(*) FROM wcf".WCF_N."_tag_to_object t2o WHERE t2o.tagID = tag.tagID) AS usageCount, language.languageName, language.languageCode";
+		$this->objectList->sqlSelects = "(SELECT COUNT(*) FROM wcf".WCF_N."_tag_to_object t2o WHERE t2o.tagID = tag.tagID) AS usageCount";
+		$this->objectList->sqlSelects .= ", language.languageName, language.languageCode";
+		$this->objectList->sqlSelects .= ", synonym.name AS synonymName";
+		
 		$this->objectList->sqlJoins = "LEFT JOIN wcf".WCF_N."_language language ON tag.languageID = language.languageID";
+		$this->objectList->sqlJoins .= " LEFT JOIN wcf".WCF_N."_tag synonym ON tag.synonymFor = synonym.tagID";
+		
 		if ($this->search !== '') {
 			$this->objectList->getConditionBuilder()->add('tag.name LIKE ?', array($this->search.'%'));
 		}

@@ -65,35 +65,37 @@ class TagEditForm extends TagAddForm {
 		)));
 		$this->objectAction->executeAction();
 		
-		// remove synonyms first
-		$sql = "UPDATE
-				wcf".WCF_N."_tag
-			SET
-				synonymFor = ?
-			WHERE
-				synonymFor = ?";
-		$statement = WCF::getDB()->prepareStatement($sql);
-		$statement->execute(array(
-			null,
-			$this->tagID
-		));
-		
-		$editor = new TagEditor($this->tagObj);
-		foreach ($this->synonyms as $synonym) {
-			if (empty($synonym)) continue;
+		if ($this->tagObj->synonymFor === null) {
+			// remove synonyms first
+			$sql = "UPDATE
+					wcf".WCF_N."_tag
+				SET
+					synonymFor = ?
+				WHERE
+					synonymFor = ?";
+			$statement = WCF::getDB()->prepareStatement($sql);
+			$statement->execute(array(
+				null,
+				$this->tagID
+			));
 			
-			// find existing tag
-			$synonymObj = Tag::getTag($synonym, $this->languageID);
-			if ($synonymObj === null) {
-				$synonymAction = new TagAction(array(), 'create', array('data' => array(
-					'name' => $synonym,
-					'languageID' => $this->languageID,
-					'synonymFor' => $this->tagID
-				)));
-				$synonymAction->executeAction();
-			}
-			else {
-				$editor->addSynonym($synonymObj);
+			$editor = new TagEditor($this->tagObj);
+			foreach ($this->synonyms as $synonym) {
+				if (empty($synonym)) continue;
+				
+				// find existing tag
+				$synonymObj = Tag::getTag($synonym, $this->languageID);
+				if ($synonymObj === null) {
+					$synonymAction = new TagAction(array(), 'create', array('data' => array(
+						'name' => $synonym,
+						'languageID' => $this->languageID,
+						'synonymFor' => $this->tagID
+					)));
+					$synonymAction->executeAction();
+				}
+				else {
+					$editor->addSynonym($synonymObj);
+				}
 			}
 		}
 		
@@ -133,7 +135,7 @@ class TagEditForm extends TagAddForm {
 		parent::assignVariables();
 		
 		WCF::getTPL()->assign(array(
-			'tagID' => $this->tagID,
+			'tagObj' => $this->tagObj,
 			'action' => 'edit'
 		));
 	}

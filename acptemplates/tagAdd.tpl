@@ -62,38 +62,48 @@
 				</dd>
 			</dl>
 			
-			<dl>
-				<dt><label for="synonyms">{lang}wcf.acp.tag.synonyms{/lang}</label></dt>
-				<dd id="synonymList" class="editableItemList"></dd>
-				<dd>
-					<input id="synonyms" type="text" value="" class="long" />
-					{if $errorField == 'synonyms'}
-						<small class="innerError">
-							{if $errorType == 'duplicate'}
-								{lang}wcf.acp.tag.error.synonym.duplicate{/lang}
-							{/if}
-						</small>
-					{/if}
-				</dd>
-			</dl>
-			<script type="text/javascript" src="{@$__wcf->getPath()}js/WCF.Tagging.js"></script>
-			<script type="text/javascript">
-				//<![CDATA[
-				$(function() {
-					var $tagList = new WCF.Tagging.TagList('#synonymList', '#synonyms');
-					
-					{if $synonyms|isset && $synonyms|count}
-						$tagList.load([ {implode from=$synonyms item='synonym'}'{$synonym}'{/implode} ]);
-					{/if}
-				});
-				//]]>
-			</script>
+			{if !$tagObj|isset || $tagObj->synonymFor === null}
+				<dl>
+					<dt><label for="synonyms">{lang}wcf.acp.tag.synonyms{/lang}</label></dt>
+					<dd id="synonymList" class="editableItemList"></dd>
+					<dd>
+						<input id="synonyms" type="text" value="" class="long" />
+						{if $errorField == 'synonyms'}
+							<small class="innerError">
+								{if $errorType == 'duplicate'}
+									{lang}wcf.acp.tag.error.synonym.duplicate{/lang}
+								{/if}
+							</small>
+						{/if}
+					</dd>
+				</dl>
+				
+				<script type="text/javascript" src="{@$__wcf->getPath()}js/WCF.Tagging.js"></script>
+				<script type="text/javascript">
+					//<![CDATA[
+					$(function() {
+						var $tagList = new WCF.Tagging.TagList('#synonymList', '#synonyms');
+						
+						{if $synonyms|isset && $synonyms|count}
+							$tagList.load([ {implode from=$synonyms item='synonym'}'{$synonym}'{/implode} ]);
+						{/if}
+					});
+					//]]>
+				</script>
+			{elseif $tagObj|isset}
+				<dl>
+					<dt><label for="synonyms">{lang}wcf.acp.tag.synonyms{/lang}</label></dt>
+					<dd>
+						<a href="{link controller='TagEdit' id=$tagObj->synonymFor}{/link}">{lang}wcf.acp.tag.synonyms.isSynonym{/lang}</a>
+					</dd>
+				</dl>
+			{/if}
 		</fieldset>
 	</div>
 	
 	<div class="formSubmit">
 		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
-		{if $tagID|isset}<input type="hidden" name="id" value="{@$tagID}" />{/if}
+		{if $tagObj|isset}<input type="hidden" name="id" value="{@$tagObj->tagID}" />{/if}
 	</div>
 </form>
 

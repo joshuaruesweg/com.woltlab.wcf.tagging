@@ -61,6 +61,33 @@
 					{/if}
 				</dd>
 			</dl>
+			
+			<dl>
+				<dt><label for="synonyms">{lang}wcf.acp.tag.synonyms{/lang}</label></dt>
+				<dd id="synonymList" class="editableItemList"></dd>
+				<dd>
+					<input id="synonyms" type="text" value="" class="long" />
+					{if $errorField == 'synonyms'}
+						<small class="innerError">
+							{if $errorType == 'duplicate'}
+								{lang}wcf.acp.tag.error.synonym.duplicate{/lang}
+							{/if}
+						</small>
+					{/if}
+				</dd>
+			</dl>
+			<script type="text/javascript" src="{@$__wcf->getPath()}js/WCF.Tagging.js"></script>
+			<script type="text/javascript">
+				//<![CDATA[
+				$(function() {
+					var $tagList = new WCF.Tagging.TagList('#synonymList', '#synonyms');
+					
+					{if $synonyms|isset && $synonyms|count}
+						$tagList.load([ {implode from=$synonyms item='synonym'}'{$synonym}'{/implode} ]);
+					{/if}
+				});
+				//]]>
+			</script>
 		</fieldset>
 	</div>
 	

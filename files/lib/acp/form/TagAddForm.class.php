@@ -3,9 +3,11 @@ namespace wcf\acp\form;
 use wcf\data\language\Language;
 use wcf\data\language\LanguageList;
 use wcf\data\tag\Tag;
+use wcf\data\tag\TagAction;
 use wcf\data\tag\TagEditor;
 use wcf\system\exception\UserInputException;
 use wcf\system\WCF;
+use wcf\util\ArrayUtil;
 use wcf\util\StringUtil;
 
 /**
@@ -42,6 +44,12 @@ class TagAddForm extends ACPForm {
 	public $languageID = 0;
 	
 	/**
+	 * synonyms
+	 * @var	array<string>
+	 */
+	public $synonyms = array();
+	
+	/**
 	 * @see wcf\page\IPage::readData()
 	 */
 	public function readData() {
@@ -59,6 +67,8 @@ class TagAddForm extends ACPForm {
 		
 		if (isset($_POST['name'])) $this->name = StringUtil::trim($_POST['name']);
 		if (isset($_POST['language'])) $this->languageID = intval($_POST['language']);
+		// actually these are synonyms
+		if (isset($_POST['tags']) && is_array($_POST['tags'])) $this->synonyms = ArrayUtil::trim($_POST['tags']);
 	}
 	
 	/**
@@ -86,6 +96,11 @@ class TagAddForm extends ACPForm {
 				throw new UserInputException('language', 'notFound');
 			}
 		}
+		
+		// validate synonyms
+		foreach ($this->synonyms as $synonym) {
+			if (StringUtil::toLowerCase($synonym) == StringUtil::toLowerCase($this->name)) throw new UserInputException('synonyms', 'duplicate');
+		}
 	}
 	
 	/**
@@ -95,16 +110,38 @@ class TagAddForm extends ACPForm {
 		parent::save();
 		
 		// save tag
-		TagEditor::create(array(
-			'languageID' => $this->languageID,
-			'name' => $this->name
-		));
+		$this->objectAction = new TagAction(array(), 'create', array('data' => array(
+			'name' => $this->name,
+			'languageID' => $this->languageID
+		)));
+		$this->objectAction->executeAction();
+		$returnValues = $this->objectAction->getReturnValues();
+		$editor = new TagEditor($returnValues['returnValues']);
+		
+		foreach ($this->synonyms as $synonym) {
+			if (empty($synonym)) continue;
+			
+			// find existing tag
+			$synonymObj = Tag::getTag($synonym, $this->languageID);
+			if ($synonymObj === null) {
+				$synonymAction = new TagAction(array(), 'create', array('data' => array(
+					'name' => $synonym,
+					'languageID' => $this->languageID,
+					'synonymFor' => $editor->tagID
+				)));
+				$synonymAction->executeAction();
+			}
+			else {
+				$editor->addSynonym($synonymObj);
+			}
+		}
 		
 		$this->saved();
 		
 		// reset values
 		$this->languageID = 0;
 		$this->name = '';
+		$this->synonyms = array();
 		
 		// show success
 		WCF::getTPL()->assign(array(
@@ -122,7 +159,8 @@ class TagAddForm extends ACPForm {
 			'action' => 'add',
 			'name' => $this->name,
 			'languageID' => $this->languageID,
-			'languages' => $this->languages
+			'languages' => $this->languages,
+			'synonyms' => $this->synonyms
 		));
 	}
 }

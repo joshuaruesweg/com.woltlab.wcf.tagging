@@ -3,6 +3,7 @@ CREATE TABLE wcf1_tag (
 	tagID INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	languageID INT(10) NOT NULL DEFAULT 0,
 	name VARCHAR(255) NOT NULL,
+	synonymFor INT(10),
 	UNIQUE KEY (languageID, name)
 );
 
@@ -17,5 +18,6 @@ CREATE TABLE wcf1_tag_to_object (
 	KEY (tagID, objectTypeID)
 );
 
+ALTER TABLE wcf1_tag ADD FOREIGN KEY (synonymFor) REFERENCES wcf1_tag (tagID) ON DELETE CASCADE;
 ALTER TABLE wcf1_tag_to_object ADD FOREIGN KEY (tagID) REFERENCES wcf1_tag (tagID) ON DELETE CASCADE;
 ALTER TABLE wcf1_tag_to_object ADD FOREIGN KEY (objectTypeID) REFERENCES wcf1_object_type (objectTypeID) ON DELETE CASCADE;

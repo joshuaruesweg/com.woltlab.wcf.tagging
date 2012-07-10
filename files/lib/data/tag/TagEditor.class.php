@@ -25,16 +25,42 @@ class TagEditor extends DatabaseObjectEditor {
 	 * @param wcf\data\tag\Tag	$synonym
 	 */
 	public function addSynonym(Tag $synonym) {
+		// clear up objects with both tags: the target and the synonym
+		// TODO: Optimize this!
+		$sql = "SELECT 
+				CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', tagID) AS hash
+			FROM
+				wcf".WCF_N."_tag_to_object
+			WHERE
+				tagID = ?";
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute(array(
+			$this->tagID
+		));
+		$parameters = array($this->tagID, $synonym->tagID, $this->tagID,' ');
+		$notIn = '?';
+		while ($row = $statement->fetchArray()) {
+			$parameters[] = $row['hash'];
+			$notIn .= ',?';
+		}
+		
 		$sql = "UPDATE
 				wcf".WCF_N."_tag_to_object
 			SET
 				tagID = ?
 			WHERE
+					tagID = ?
+				AND	CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', ?) NOT IN (".$notIn.")";
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute($parameters);
+		
+		$sql = "DELETE FROM
+				wcf".WCF_N."_tag_to_object
+			WHERE
 				tagID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array(
-			$this->tagID,
-			$synonym->tagID
+			$synonym->tagID,
 		));
 		
 		$editor = new TagEditor($synonym);

@@ -62,7 +62,8 @@ class TagEngine extends SingletonFactory {
 				));
 			}
 			
-			$tagIDs[$tagObj->tagID] = $tagObj->tagID;
+			if ($tagObj->synonymFor !== null) $tagIDs[$tagObj->synonymFor] = $tagObj->synonymFor;
+			else $tagIDs[$tagObj->tagID] = $tagObj->tagID;
 		}
 		
 		// save tags

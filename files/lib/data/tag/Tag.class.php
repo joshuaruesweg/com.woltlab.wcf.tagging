@@ -31,10 +31,10 @@ class Tag extends DatabaseObject implements IRouteController {
 	 *
 	 * @param	string		$name
 	 * @param	integer		$languageID
-	 * @return	mixed		null, if no tag with the given name exist or the id of the existing tag
+	 * @return	mixed		null, if no tag with the given name exist or an instance of Tag
 	 */
 	public static function getTag($name, $languageID = 0) {
-		$sql = "SELECT	tagID
+		$sql = "SELECT	*
 			FROM 	wcf".WCF_N."_tag
 			WHERE 	languageID = ?
 				AND name = ?";

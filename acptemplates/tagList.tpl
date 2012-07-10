@@ -64,7 +64,7 @@
 								{event name='buttons'}
 							</td>
 							<td class="columnID"><p>{#$tag->tagID}</p></td>
-							<td class="columnTitle columnName"><p>{if $__wcf->session->getPermission('admin.content.tag.canEditTag')}<a href="{link controller='TagEdit' id=$tag->tagID}{/link}" title="{$tag->name}" class="badge">{$tag->name}</a>{else}<span class="badge">{$tag->name}</span>{/if}</p></td>
+							<td class="columnTitle columnName"><p>{if $__wcf->session->getPermission('admin.content.tag.canEditTag')}<a href="{link controller='TagEdit' id=$tag->tagID}{/link}" class="badge">{$tag->name}</a>{else}<span class="badge">{$tag->name}</span>{/if}</p></td>
 							<td class="columnNumber columnUsageCount"><p>{if $tag->synonymFor === null}{#$tag->usageCount}{/if}</p></td>
 							<td class="columnText columnLanguage"><p>{if $tag->languageName !== null}{$tag->languageName} ({$tag->languageCode}){/if}</p></td>
 							<td class="columnText columnSynonymFor"><p>{if $tag->synonymFor !== null}<a href="{link controller='TagList'}search={@$tag->synonymName|rawurlencode}{/link}" class="badge">{$tag->synonymName}</a>{/if}</p></td>

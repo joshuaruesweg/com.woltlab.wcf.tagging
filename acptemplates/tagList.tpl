@@ -14,6 +14,24 @@
 	</hgroup>
 </header>
 
+<form action="{link controller='TagList'}{/link}">
+	<div class="container containerPadding marginTop shadow">
+		<fieldset><legend>{lang}wcf.acp.tag.list.search{/lang}</legend>
+			<dl>
+				<dt><label for="search">{lang}wcf.acp.tag.list.search.query{/lang}</label></dt>
+				<dd>
+					<input type="search" id="search" name="search" value="{$search}" required="required" autofocus="autofocus" class="medium" />
+				</dd>
+			</dl>
+		</fieldset>
+		
+		<div class="formSubmit">
+			<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
+			{@SID_INPUT_TAG}
+		</div>
+	</div>
+</form>
+
 <div class="contentNavigation">
 	{pages print=true assign=pagesLinks controller="TaglList" link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder&search=$search"}
 	

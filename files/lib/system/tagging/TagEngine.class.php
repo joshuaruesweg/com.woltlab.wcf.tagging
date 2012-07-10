@@ -1,8 +1,8 @@
 <?php
 namespace wcf\system\tagging;
 use wcf\data\object\type\ObjectTypeCache;
-use wcf\data\tag\TagEditor;
 use wcf\data\tag\Tag;
+use wcf\data\tag\TagAction;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
 
@@ -56,10 +56,14 @@ class TagEngine extends SingletonFactory {
 			$tagObj = Tag::getTag($tag, $languageID);
 			if ($tagObj === null) {
 				// create new tag
-				$tagObj = TagEditor::create(array(
-					'languageID' => $languageID,
-					'name' => $tag
-				));
+				$tagAction = new TagAction(array(), 'create', array('data' => array(
+					'name' => $tag,
+					'languageID' => $languageID
+				)));
+				
+				$tagAction->executeAction();
+				$returnValues = $tagAction->getReturnValues();
+				$tagObj = $returnValues['returnValues'];
 			}
 			
 			if ($tagObj->synonymFor !== null) $tagIDs[$tagObj->synonymFor] = $tagObj->synonymFor;

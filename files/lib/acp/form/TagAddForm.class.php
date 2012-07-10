@@ -85,7 +85,7 @@ class TagAddForm extends ACPForm {
 		
 		// check duplicate
 		$tag = Tag::getTag($this->name, $this->languageID);
-		if ($tag !== null) {
+		if ($tag !== null && (!isset($this->tagObj) || $tag->tagID != $this->tagObj->tagID)) {
 			throw new UserInputException('name', 'duplicate');
 		}
 		

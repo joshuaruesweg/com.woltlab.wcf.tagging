@@ -43,10 +43,10 @@
 				</dd>
 			</dl>
 			
-			<dl{if $errorField == 'language'} class="formError"{/if}>
+			<dl{if $errorField == 'language' || $action == 'edit'} class="{if $action == 'edit'}disabled{else}formError{/if}"{/if}>
 				<dt><label for="language">{lang}wcf.acp.tag.language{/lang}</label></dt>
 				<dd>
-					<select id="language" name="language">
+					<select id="language" name="language"{if $action == 'edit'} disabled="disabled"{/if}>
 						<option value="0"{if $languageID == 0} selected="selected"{/if}>&nbsp;</option>
 						{foreach from=$languages item='language'}
 							<option value="{@$language->languageID}"{if $languageID == $language->languageID} selected="selected"{/if}>{$language->languageName} ({$language->languageCode})</option>

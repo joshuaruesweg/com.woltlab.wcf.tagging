@@ -113,16 +113,17 @@ class TagEditForm extends TagAddForm {
 		
 		if (!count($_POST)) {
 			$this->name = $this->tagObj->name;
-			
-			$synonymList = new TagList();
-			$synonymList->getConditionBuilder()->add('synonymFor = ?', array($this->tagObj->tagID));
-			$synonymList->readObjects();
-			foreach ($synonymList as $synonym) {
-				$this->synonyms[] = $synonym->name;
-			}
 		}
 		
 		$this->languageID = $this->tagObj->languageID;
+		
+		$synonymList = new TagList();
+		$synonymList->getConditionBuilder()->add('synonymFor = ?', array($this->tagObj->tagID));
+		$synonymList->readObjects();
+		$this->synonyms = array();
+		foreach ($synonymList as $synonym) {
+			$this->synonyms[] = $synonym->name;
+		}
 	}
 	
 	/**

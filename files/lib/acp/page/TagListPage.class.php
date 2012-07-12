@@ -19,7 +19,7 @@ class TagListPage extends SortablePage {
 	/**
 	 * @see wcf\page\AbstractPage::$neededPermissions
 	 */
-	public $neededPermissions = array('admin.system.canViewLog');
+	public $neededPermissions = array('admin.content.tag.canEditTag', 'admin.content.tag.canDeleteTag');
 	
 	/**
 	 * @see wcf\page\SortablePage::$defaultSortField

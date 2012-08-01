@@ -22,13 +22,13 @@
 	</nav>
 </div>
 
-<form method="post" action="{if $action == 'add'}{link controller='TagAdd'}{/link}{else}{link controller='TagEdit'}{/link}{/if}">
+<form method="post" action="{if $action == 'add'}{link controller='TagAdd'}{/link}{else}{link controller='TagEdit' id=$tagObj->tagID}{/link}{/if}">
 	<div class="container containerPadding marginTop shadow">
 		<fieldset>
-			<legend>{lang}wcf.acp.tag.data{/lang}</legend>
+			<legend>{lang}wcf.global.form.data{/lang}</legend>
 			
 			<dl{if $errorField == 'name'} class="formError"{/if}>
-				<dt><label for="name">{lang}wcf.acp.tag.name{/lang}</label></dt>
+				<dt><label for="name">{lang}wcf.global.name{/lang}</label></dt>
 				<dd>
 					<input type="text" id="name" name="name" value="{$name}" required="required" autofocus="autofocus" class="medium" />
 					{if $errorField == 'name'}
@@ -103,7 +103,6 @@
 	
 	<div class="formSubmit">
 		<input type="submit" value="{lang}wcf.global.button.submit{/lang}" accesskey="s" />
-		{if $tagObj|isset}<input type="hidden" name="id" value="{@$tagObj->tagID}" />{/if}
 	</div>
 </form>
 

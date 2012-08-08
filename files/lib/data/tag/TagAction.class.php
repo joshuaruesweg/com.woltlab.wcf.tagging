@@ -1,6 +1,7 @@
 <?php
 namespace wcf\data\tag;
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\data\ISearchAction;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\exception\ValidateActionException;
 use wcf\system\WCF;
@@ -15,7 +16,7 @@ use wcf\system\WCF;
  * @subpackage	data.tag
  * @category 	Community Framework
  */
-class TagAction extends AbstractDatabaseObjectAction {
+class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	/**
 	 * @see wcf\data\AbstractDatabaseObjectAction::$className
 	 */
@@ -31,11 +32,10 @@ class TagAction extends AbstractDatabaseObjectAction {
 	 */
 	protected $permissionsUpdate = array('admin.content.tag.canEditTag');
 	
-	
 	/**
-	 * Validates parameters to search for tags.
+	 * @see	wcf\data\IPositionAction::validateGetSearchResultList()
 	 */
-	public function validateGetList() {
+	public function validateGetSearchResultList() {
 		if (!isset($this->parameters['data']['searchString'])) {
 			throw new ValidateActionException("Missing parameter 'searchString'");
 		}
@@ -46,11 +46,9 @@ class TagAction extends AbstractDatabaseObjectAction {
 	}
 	
 	/**
-	 * Returns a list of tags based upon given search criteria.
-	 *
-	 * @return	array<array>
+	 * @see	wcf\data\IPositionAction::getSearchResultList()
 	 */
-	public function getList() {
+	public function getSearchResultList() {
 		$searchString = $this->parameters['data']['searchString'];
 		$excludedSearchValues = array();
 		if (isset($this->parameters['data']['excludedSearchValues'])) {

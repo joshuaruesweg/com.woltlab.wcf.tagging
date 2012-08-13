@@ -87,4 +87,13 @@ class Tag extends DatabaseObject implements IRouteController {
 	public function getTitle() {
 		return $this->name;
 	}
+	
+	/**
+	 * Returns the name of this tag.
+	 * 
+	 * @return	string
+	 */
+	public function __toString() {
+		return $this->getTitle();
+	}
 }

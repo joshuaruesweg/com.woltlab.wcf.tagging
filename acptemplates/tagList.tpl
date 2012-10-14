@@ -1,4 +1,4 @@
-{include file='header'}
+{include file='header' pageTitle='wcf.acp.tag.list'}
 
 <script type="text/javascript">
 	//<![CDATA[

@@ -3,6 +3,7 @@ namespace wcf\system\tagging;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\data\tag\Tag;
 use wcf\data\tag\TagAction;
+use wcf\system\exception\SystemException;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
 
@@ -26,12 +27,9 @@ class TagEngine extends SingletonFactory {
 	 * @param	integer		$languageID
 	 * @param	boolean		$replace
 	 */
-	public function addObjectTags($objectType, $objectID, array $tags, $languageID = 0, $replace = true) {
-		if ($languageID === null) $languageID = 0;
+	public function addObjectTags($objectType, $objectID, array $tags, $languageID, $replace = true) {
+		$objectTypeID = $this->getObjectTypeID($objectType);
 		$tags = array_unique($tags);
-		
-		// get object type
-		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
 		
 		// remove tags prior to apply the new ones (prevents duplicate entries)
 		if ($replace) {
@@ -41,9 +39,9 @@ class TagEngine extends SingletonFactory {
 						AND languageID = ?";
 			$statement = WCF::getDB()->prepareStatement($sql);
 			$statement->execute(array(
-					$objectTypeObj->objectTypeID,
-					$objectID,
-					$languageID
+				$objectTypeID,
+				$objectID,
+				$languageID
 			));
 		}
 		
@@ -85,18 +83,24 @@ class TagEngine extends SingletonFactory {
 	/**
 	 * Deletes all tags assigned to given tagged object.
 	 *
-	 * @param 	wcf\system\tagging\ITagged	$object 	object whose assigned to tags should be deleted
-	 * @param	array<integer>			$languageIDs
+	 * @param	string		$objectType
+	 * @param	integer		$objectID
+	 * @param	integer		$languageID
 	 */
-	public function deleteObjectTags(ITagged $object, array $languageIDs = array()) {
-		if (!count($languageIDs)) $languageIDs = array(0);
+	public function deleteObjectTags($objectType, $objectID, $languageID = null) {
+		$objectTypeID = $this->getObjectTypeID($objectType);
 		
-		$sql = "DELETE FROM 	wcf".WCF_N."_tag_to_object
-			WHERE 		objectTypeID = ?
-					AND languageID IN (?".(count($languageIDs) > 1 ? str_repeat(',?', count($languageIDs) - 1) : '').")
-					AND objectID = ?";
+		$sql = "DELETE FROM	wcf".WCF_N."_tag_to_object
+			WHERE		objectTypeID = ?
+					AND objectID = ?
+					".($languageID !== null ? "AND languageID = ?" : "");
 		$statement = WCF::getDB()->prepareStatement($sql);
-		$statement->execute(array($object->getTaggable()->getObjectTypeID(), $languageIDs, $object->getObjectID()));
+		$parameters = array(
+			$objectTypeID,
+			$objectID
+		);
+		if ($languageID !== null) $parameters[] = $languageID;
+		$statement->execute($parameters);
 	}
 	
 	/**
@@ -104,14 +108,11 @@ class TagEngine extends SingletonFactory {
 	 * 
 	 * @param	string		$objectType
 	 * @param	integer		$objectID
-	 * @param	integer		$languageID
+	 * @param	array<integer>	$languageIDs
 	 * @return	array<wcf\data\tag\Tag>
 	 */
-	public function getObjectTags($objectType, $objectID, $languageID = 0) {
-		if ($languageID === null) $languageID = 0;
-		
-		// get object type
-		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
+	public function getObjectTags($objectType, $objectID, array $languageIDs = array()) {
+		$objectTypeID = $this->getObjectTypeID($objectType);
 		
 		// get tags
 		$sql = "SELECT		tag.*
@@ -120,13 +121,14 @@ class TagEngine extends SingletonFactory {
 			ON		(tag.tagID = tag_to_object.tagID)
 			WHERE		tag_to_object.objectTypeID = ?
 					AND tag_to_object.objectID = ?
-					AND tag_to_object.languageID = ?";
+					".(!empty($languageIDs) ? "AND tag_to_object.languageID IN (?)" : "");
 		$statement = WCF::getDB()->prepareStatement($sql);
-		$statement->execute(array(
-			$objectTypeObj->objectTypeID,
-			$objectID,
-			$languageID
-		));
+		$parameters = array(
+			$objectTypeID,
+			$objectID
+		);
+		if (!empty($languageIDs)) $parameters[] = $languageIDs;
+		$statement->execute($parameters);
 		
 		$tags = array();
 		
@@ -135,5 +137,21 @@ class TagEngine extends SingletonFactory {
 		}
 		
 		return $tags;
+	}
+	
+	/**
+	 * Returns object type id by object type name.
+	 * 
+	 * @param	string		$objectType
+	 * @return	integer
+	 */
+	protected function getObjectTypeID($objectType) {
+		// get object type
+		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
+		if ($objectTypeObj === null) {
+			throw new SystemException("Object type '".$objectType."' is not valid for definition 'com.woltlab.wcf.tagging.taggableObject'");
+		}
+		
+		return $objectTypeObj->objectTypeID;
 	}
 }

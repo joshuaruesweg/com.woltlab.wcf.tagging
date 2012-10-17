@@ -12,12 +12,14 @@ CREATE TABLE wcf1_tag_to_object (
 	objectID INT(10) NOT NULL,
 	tagID INT(10) NOT NULL,
 	objectTypeID INT(10) NOT NULL,
-	languageID INT(10) NOT NULL DEFAULT 0,
+	languageID INT(10) NOT NULL,
 	UNIQUE KEY (objectTypeID, languageID, objectID, tagID),
 	KEY (objectTypeID, languageID, tagID),
 	KEY (tagID, objectTypeID)
 );
 
 ALTER TABLE wcf1_tag ADD FOREIGN KEY (synonymFor) REFERENCES wcf1_tag (tagID) ON DELETE CASCADE;
+
 ALTER TABLE wcf1_tag_to_object ADD FOREIGN KEY (tagID) REFERENCES wcf1_tag (tagID) ON DELETE CASCADE;
+ALTER TABLE wcf1_tag_to_object ADD FOREIGN KEY (languageID) REFERENCES wcf1_language (languageID) ON DELETE CASCADE;
 ALTER TABLE wcf1_tag_to_object ADD FOREIGN KEY (objectTypeID) REFERENCES wcf1_object_type (objectTypeID) ON DELETE CASCADE;

@@ -3,6 +3,7 @@ namespace wcf\system\tagging;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\data\tag\Tag;
 use wcf\data\tag\TagAction;
+use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\exception\SystemException;
 use wcf\system\SingletonFactory;
 use wcf\system\WCF;
@@ -75,7 +76,7 @@ class TagEngine extends SingletonFactory {
 		WCF::getDB()->beginTransaction();
 		$statement = WCF::getDB()->prepareStatement($sql);
 		foreach ($tagIDs as $tagID) {
-			$statement->execute(array($objectID, $tagID, $objectTypeObj->objectTypeID, $languageID));
+			$statement->execute(array($objectID, $tagID, $objectTypeID, $languageID));
 		}
 		WCF::getDB()->commitTransaction();
 	}
@@ -115,20 +116,20 @@ class TagEngine extends SingletonFactory {
 		$objectTypeID = $this->getObjectTypeID($objectType);
 		
 		// get tags
+		$conditions = new PreparedStatementConditionBuilder();
+		$conditions->add("tag_to_object.objectTypeID = ?", array($objectTypeID));
+		$conditions->add("tag_to_object.objectID = ?", array($objectID));
+		if (!empty($languageIDs)) {
+			$conditions->add("tag_to_object.languageID IN (?)", array($languageIDs));
+		}
+		
 		$sql = "SELECT		tag.*
 			FROM		wcf".WCF_N."_tag_to_object tag_to_object
 			LEFT JOIN	wcf".WCF_N."_tag tag
 			ON		(tag.tagID = tag_to_object.tagID)
-			WHERE		tag_to_object.objectTypeID = ?
-					AND tag_to_object.objectID = ?
-					".(!empty($languageIDs) ? "AND tag_to_object.languageID IN (?)" : "");
+			".$conditions;
 		$statement = WCF::getDB()->prepareStatement($sql);
-		$parameters = array(
-			$objectTypeID,
-			$objectID
-		);
-		if (!empty($languageIDs)) $parameters[] = $languageIDs;
-		$statement->execute($parameters);
+		$statement->execute($conditions->getParameters());
 		
 		$tags = array();
 		

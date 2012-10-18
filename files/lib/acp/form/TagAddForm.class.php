@@ -1,11 +1,10 @@
 <?php
 namespace wcf\acp\form;
-use wcf\data\language\Language;
-use wcf\data\language\LanguageList;
 use wcf\data\tag\Tag;
 use wcf\data\tag\TagAction;
 use wcf\data\tag\TagEditor;
 use wcf\system\exception\UserInputException;
+use wcf\system\language\LanguageFactory;
 use wcf\system\WCF;
 use wcf\util\ArrayUtil;
 use wcf\util\StringUtil;
@@ -32,6 +31,12 @@ class TagAddForm extends ACPForm {
 	public $neededPermissions = array('admin.content.tag.canAddTag');
 	
 	/**
+	 * list of available languages
+	 * @var	array
+	 */
+	public $availableLanguages = array();
+	
+	/**
 	 * name value
 	 * @var	string
 	 */
@@ -50,13 +55,12 @@ class TagAddForm extends ACPForm {
 	public $synonyms = array();
 	
 	/**
-	 * @see wcf\page\IPage::readData()
+	 * @see wcf\page\IPage::readParameters()
 	 */
-	public function readData() {
-		$this->languages = new LanguageList();
-		$this->languages->readObjects();
+	public function readParameters() {
+		parent::readParameters();
 		
-		parent::readData();
+		$this->availableLanguages = LanguageFactory::getInstance()->getContentLanguages();
 	}
 	
 	/**
@@ -66,7 +70,8 @@ class TagAddForm extends ACPForm {
 		parent::readFormParameters();
 		
 		if (isset($_POST['name'])) $this->name = StringUtil::trim($_POST['name']);
-		if (isset($_POST['language'])) $this->languageID = intval($_POST['language']);
+		if (isset($_POST['languageID'])) $this->languageID = intval($_POST['languageID']);
+		
 		// actually these are synonyms
 		if (isset($_POST['tags']) && is_array($_POST['tags'])) $this->synonyms = ArrayUtil::trim($_POST['tags']);
 	}
@@ -77,29 +82,52 @@ class TagAddForm extends ACPForm {
 	public function validate() {
 		parent::validate();
 		
-		// validate fields
-		// name must not be empty
 		if (empty($this->name)) {
 			throw new UserInputException('name');
 		}
 		
-		// check duplicate
+		// check for duplicates
 		$tag = Tag::getTag($this->name, $this->languageID);
 		if ($tag !== null && (!isset($this->tagObj) || $tag->tagID != $this->tagObj->tagID)) {
 			throw new UserInputException('name', 'duplicate');
 		}
 		
 		// validate language
-		if ($this->languageID !== 0) {
-			$language = new Language($this->languageID);
-			if (!$language->languageID) {
-				throw new UserInputException('language', 'notFound');
+		if (empty($this->availableLanguages)) {
+			// force default language id
+			$this->languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
+		}
+		else {
+			if (!isset($this->availableLanguages[$this->languageID])) {
+				throw new UserInputException('languageID', 'notFound');
 			}
 		}
 		
 		// validate synonyms
 		foreach ($this->synonyms as $synonym) {
 			if (StringUtil::toLowerCase($synonym) == StringUtil::toLowerCase($this->name)) throw new UserInputException('synonyms', 'duplicate');
+		}
+	}
+	
+	/**
+	 * @see	wcf\page\IPage::readData()
+	 */
+	public function readData() {
+		parent::readData();
+		
+		if (empty($_POST)) {
+			// pre-select default language id
+			if (!empty($this->availableLanguages)) {
+				$this->languageID = LanguageFactory::getInstance()->getDefaultLanguageID();
+				if (!isset($this->availableLanguages[$this->languageID])) {
+					// language id is not within content languages, try user's language instead
+					$this->languageID = WCF::getUser()->languageID;
+					if (!isset($this->availableLanguages[$this->languageID])) {
+						// this installation is weird, just select nothing
+						$this->languageID = 0;
+					}
+				}
+			}
 		}
 	}
 	
@@ -139,7 +167,6 @@ class TagAddForm extends ACPForm {
 		$this->saved();
 		
 		// reset values
-		$this->languageID = 0;
 		$this->name = '';
 		$this->synonyms = array();
 		
@@ -157,9 +184,9 @@ class TagAddForm extends ACPForm {
 		
 		WCF::getTPL()->assign(array(
 			'action' => 'add',
+			'availableLanguages' => $this->availableLanguages,
 			'name' => $this->name,
 			'languageID' => $this->languageID,
-			'languages' => $this->languages,
 			'synonyms' => $this->synonyms
 		));
 	}

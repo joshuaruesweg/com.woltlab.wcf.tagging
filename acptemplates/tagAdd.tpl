@@ -45,7 +45,7 @@
 			
 			{hascontent}
 				<dl{if $errorField == 'languageID' || $action == 'edit'} class="{if $action == 'edit'}disabled{else}formError{/if}"{/if}>
-					<dt><label for="languageID">{lang}wcf.acp.tag.language{/lang}</label></dt>
+					<dt><label for="languageID">{lang}wcf.acp.tag.languageID{/lang}</label></dt>
 					<dd>
 						<select id="languageID" name="languageID"{if $action == 'edit'} disabled="disabled"{/if}>
 							{content}
@@ -56,9 +56,7 @@
 						</select>
 						{if $errorField == 'languageID'}
 							<small class="innerError">
-								{if $errorType == 'notFound'}
-									{lang}wcf.acp.tag.error.language.duplicate{/lang}
-								{/if}
+								{lang}wcf.acp.tag.error.languageID.{$errorType}{/lang}
 							</small>
 						{/if}
 					</dd>

@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="de">
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
+	<category name="wcf.acp.menu">
+		<item name="wcf.acp.menu.link.tag"><![CDATA[Tags]]></item>
+		<item name="wcf.acp.menu.link.tag.add"><![CDATA[Tag hinzufügen]]></item>
+		<item name="wcf.acp.menu.link.tag.list"><![CDATA[Tags auflisten]]></item>
+	</category>
+	
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.module_tagging"><![CDATA[Tagging]]></item>
 		<item name="wcf.acp.option.module_tagging.description"><![CDATA[Aktiviert die Funktion für das Taggen von Inhalten.]]></item>
 	</category>
+	
+	<category name="wcf.acp.tag">
+		<item name="wcf.acp.tag.add"><![CDATA[Tag hinzufügen]]></item>
+		<item name="wcf.acp.tag.edit"><![CDATA[Tag bearbeiten]]></item>
+		<item name="wcf.acp.tag.error.languageID.notFound"><![CDATA[Die gewählte Sprache ist ungültig]]></item>
+		<item name="wcf.acp.tag.languageID"><![CDATA[Sprache]]></item>
+		<item name="wcf.acp.tag.list"><![CDATA[Tags auflisten]]></item>
+		<item name="wcf.acp.tag.list.search"><![CDATA[Tags suchen]]></item>
+		<item name="wcf.acp.tag.list.search.query"><![CDATA[Suchbegriff]]></item>
+		<item name="wcf.acp.tag.name"><![CDATA[Name]]></item>
+		<item name="wcf.acp.tag.synonyms"><![CDATA[Synonyme]]></item>
+		<item name="wcf.acp.tag.synonymFor"><![CDATA[Synonym für]]></item>
+		<item name="wcf.acp.tag.usageCount"><![CDATA[Verwendungen]]></item>
+	</category>
+	
 	<category name="wcf.tagging">
 		<item name="wcf.tagging.filter"><![CDATA[Filter nach Tag{if $tag|isset}: &raquo;{$tag}&laquo;{/if}]]></item>
 		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>

@@ -64,12 +64,11 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	 */
 	protected function parseLanguageIDs($languageIDsStr) {
 		$languageIDs = explode(',', $languageIDsStr);
+		
 		// handle special '0' value
-		foreach ($languageIDs as $languageID) {
-			if ($languageID == 0) {
-				$languageIDs = array();
-				break;
-			}
+		if (in_array(0, $languageIDs)) {
+			// discard all language ids
+			$languageIDs = array();
 		}
 		
 		return $languageIDs;

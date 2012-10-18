@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com/XSD/language.xsd" languagecode="en">
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="en">
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.module_tagging"><![CDATA[Tagging]]></item>
 		<item name="wcf.acp.option.module_tagging.description"><![CDATA[Enables the tagging of content.]]></item>
 	</category>
+	
 	<category name="wcf.tagging">
 		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: &quot;{$tag}&quot;{/if}]]></item>
 		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>

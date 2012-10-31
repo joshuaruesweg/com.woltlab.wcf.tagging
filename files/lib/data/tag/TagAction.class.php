@@ -18,6 +18,11 @@ use wcf\system\WCF;
  */
 class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	/**
+	 * @see	wcf\data\AbstractDatabaseObjectAction
+	 */
+	protected $allowGuestAccess = array('getSearchResultList');
+	
+	/**
 	 * @see wcf\data\AbstractDatabaseObjectAction::$className
 	 */
 	protected $className = 'wcf\data\tag\TagEditor';

@@ -5,7 +5,6 @@ use wcf\data\tag\TagCloudTag;
 use wcf\data\tag\Tag;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
-use wcf\util\StringUtil;
 
 /**
  * Caches the tag cloud.
@@ -101,7 +100,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 				$statement->execute(array_keys($tagIDs));
 				while ($row = $statement->fetchArray()) {
 					$row['counter'] = $tagIDs[$row['tagID']];
-					$this->tags[StringUtil::toLowerCase($row['name'])] = new TagCloudTag(new Tag(null, $row));
+					$this->tags[$row['name']] = new TagCloudTag(new Tag(null, $row));
 				}
 
 				// sort by counter

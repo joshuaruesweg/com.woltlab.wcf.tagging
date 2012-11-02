@@ -57,12 +57,12 @@ class TagCloud {
 	 */
 	public function __construct(array $languageIDs = array()) {
 		$this->languageIDs = $languageIDs;
-		if (!count($this->languageIDs)) $this->languageIDs = array(0);
+		if (empty($this->languageIDs)) $this->languageIDs = array(0);
 		
 		// init cache
 		$this->loadCache();
 	}
-
+	
 	/**
 	 * Loads the tag cloud cache.
 	 */
@@ -75,7 +75,7 @@ class TagCloud {
 	
 	/**
 	 * Gets a list of weighted tags.
-	 *
+	 * 
 	 * @param	integer				$slice
 	 * @return	array<wcf\data\tag\TagCloudTag>	the tags to get
 	 */

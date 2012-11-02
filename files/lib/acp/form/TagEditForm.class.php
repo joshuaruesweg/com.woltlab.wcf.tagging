@@ -113,7 +113,7 @@ class TagEditForm extends TagAddForm {
 	public function readData() {
 		parent::readData();
 		
-		if (!count($_POST)) {
+		if (empty($_POST)) {
 			$this->name = $this->tagObj->name;
 		}
 		

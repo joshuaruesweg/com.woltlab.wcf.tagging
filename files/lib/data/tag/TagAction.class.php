@@ -44,7 +44,7 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 		if (!isset($this->parameters['data']['searchString'])) {
 			throw new ValidateActionException("Missing parameter 'searchString'");
 		}
-	
+		
 		if (isset($this->parameters['data']['excludedSearchValues']) && !is_array($this->parameters['data']['excludedSearchValues'])) {
 			throw new ValidateActionException("Invalid parameter 'excludedSearchValues' given");
 		}
@@ -63,10 +63,10 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 		
 		$conditionBuilder = new PreparedStatementConditionBuilder();
 		$conditionBuilder->add("name LIKE ?", array($searchString.'%'));
-		if (count($excludedSearchValues)) {
+		if (!empty($excludedSearchValues)) {
 			$conditionBuilder->add("name NOT IN (?)", array($excludedSearchValues));
 		}
-	
+		
 		// find tags
 		$sql = "SELECT	tagID, name
 			FROM	wcf".WCF_N."_tag
@@ -79,7 +79,7 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 				'objectID' => $row['tagID']
 			);
 		}
-	
+		
 		return $list;
 	}
 }

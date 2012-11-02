@@ -72,9 +72,9 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 		
 		return $languageIDs;
 	}
-
+	
 	protected function getTags() {
-		if (count($this->objectTypeIDs) > 0) {
+		if (!empty($this->objectTypeIDs)) {
 			// get tag ids
 			$tagIDs = array();
 			$conditionBuilder = new PreparedStatementConditionBuilder();
@@ -92,7 +92,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 			}
 			
 			// get tags
-			if (count($tagIDs)) {
+			if (!empty($tagIDs)) {
 				$sql = "SELECT	*
 					FROM	wcf".WCF_N."_tag
 					WHERE	tagID IN (?".(count($tagIDs) > 1 ? str_repeat(',?', count($tagIDs) - 1) : '').")";

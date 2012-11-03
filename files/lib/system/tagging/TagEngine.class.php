@@ -11,12 +11,12 @@ use wcf\system\WCF;
 /**
  * Manages the tagging of objects.
  * 
- * @author 	Marcel Werk
+ * @author	Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagEngine extends SingletonFactory {
 	/**

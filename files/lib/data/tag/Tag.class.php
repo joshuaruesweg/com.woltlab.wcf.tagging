@@ -13,7 +13,7 @@ use wcf\util\ArrayUtil;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class Tag extends DatabaseObject implements IRouteController {
 	/**

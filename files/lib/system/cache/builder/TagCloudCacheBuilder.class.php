@@ -9,12 +9,12 @@ use wcf\system\WCF;
 /**
  * Caches the tag cloud.
  * 
- * @author 	Marcel Werk
+ * @author	Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.cache.builder
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagCloudCacheBuilder implements ICacheBuilder {
 	/**
@@ -25,18 +25,18 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	
 	/**
 	 * language ids
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $languageIDs = array();
 	
 	/**
 	 * object type ids
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $objectTypeIDs = array();
 
 	/**
-	 * @see wcf\system\cache\builder\CacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\CacheBuilder::getData()
 	 */
 	public function getData(array $cacheResource) {
 		list($cache, $languageIDsStr) = explode('-', $cacheResource['cache']);

@@ -11,7 +11,7 @@ use wcf\system\WCF;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagEditor extends DatabaseObjectEditor {
 	/**

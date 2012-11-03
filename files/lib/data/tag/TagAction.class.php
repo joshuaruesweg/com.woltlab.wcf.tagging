@@ -14,7 +14,7 @@ use wcf\system\WCF;
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	/**
@@ -23,17 +23,17 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	protected $allowGuestAccess = array('getSearchResultList');
 	
 	/**
-	 * @see wcf\data\AbstractDatabaseObjectAction::$className
+	 * @see	wcf\data\AbstractDatabaseObjectAction::$className
 	 */
 	protected $className = 'wcf\data\tag\TagEditor';
 	
 	/**
-	 * @see \wcf\data\AbstractDatabaseObjectAction::$permissionsDelete
+	 * @see	\wcf\data\AbstractDatabaseObjectAction::$permissionsDelete
 	 */
 	protected $permissionsDelete = array('admin.content.tag.canDeleteTag');
 	
 	/**
-	 * @see \wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
+	 * @see	\wcf\data\AbstractDatabaseObjectAction::$permissionsUpdate
 	 */
 	protected $permissionsUpdate = array('admin.content.tag.canEditTag');
 	

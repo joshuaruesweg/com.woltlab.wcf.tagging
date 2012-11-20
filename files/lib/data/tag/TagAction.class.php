@@ -3,7 +3,7 @@ namespace wcf\data\tag;
 use wcf\data\AbstractDatabaseObjectAction;
 use wcf\data\ISearchAction;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
-use wcf\system\exception\ValidateActionException;
+use wcf\system\exception\UserInputException;
 use wcf\system\WCF;
 
 /**
@@ -42,11 +42,11 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	 */
 	public function validateGetSearchResultList() {
 		if (!isset($this->parameters['data']['searchString'])) {
-			throw new ValidateActionException("Missing parameter 'searchString'");
+			throw new UserInputException('searchString');
 		}
 		
 		if (isset($this->parameters['data']['excludedSearchValues']) && !is_array($this->parameters['data']['excludedSearchValues'])) {
-			throw new ValidateActionException("Invalid parameter 'excludedSearchValues' given");
+			throw new UserInputException('excludedSearchValues');
 		}
 	}
 	

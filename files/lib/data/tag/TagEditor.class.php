@@ -27,38 +27,38 @@ class TagEditor extends DatabaseObjectEditor {
 	public function addSynonym(Tag $synonym) {
 		// clear up objects with both tags: the target and the synonym
 		// TODO: Optimize this!
-		// TODO: Fix this, sql layout is messed up and PostgreSQL does not support CONCAT (uses '||' instead)
-		$sql = "SELECT 
-				CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', tagID) AS hash
-			FROM
-				wcf".WCF_N."_tag_to_object
-			WHERE
-				tagID = ?";
+		switch (WCF::getDB()->getDBType()) {
+			case 'wcf\system\database\MySQLDatabase':
+				$concat = "CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', tagID)";
+			break;
+			
+			case 'wcf\system\database\PostgreSQLDatabase':
+				$concat = "(objectTypeID || '-' || languageID || '-' || objectID || '-' || tagID)";
+			break;
+		}
+		$sql = "SELECT	".$concat." AS hash
+			FROM	wcf".WCF_N."_tag_to_object
+			WHERE	tagID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array(
 			$this->tagID
 		));
-		$parameters = array($this->tagID, $synonym->tagID, $this->tagID,' ');
+		$parameters = array($this->tagID, $synonym->tagID, $this->tagID, ' ');
 		$notIn = '?';
 		while ($row = $statement->fetchArray()) {
 			$parameters[] = $row['hash'];
-			$notIn .= ',?';
+			$notIn .= ', ?';
 		}
 		
-		$sql = "UPDATE
-				wcf".WCF_N."_tag_to_object
-			SET
-				tagID = ?
-			WHERE
-					tagID = ?
-				AND	CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', ?) NOT IN (".$notIn.")";
+		$sql = "UPDATE	wcf".WCF_N."_tag_to_object
+			SET	tagID = ?
+			WHERE		tagID = ?
+				AND	".str_replace('tagID', '?', $concat)." NOT IN (".$notIn.")";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute($parameters);
 		
-		$sql = "DELETE FROM
-				wcf".WCF_N."_tag_to_object
-			WHERE
-				tagID = ?";
+		$sql = "DELETE FROM	wcf".WCF_N."_tag_to_object
+			WHERE		tagID = ?";
 		$statement = WCF::getDB()->prepareStatement($sql);
 		$statement->execute(array(
 			$synonym->tagID,

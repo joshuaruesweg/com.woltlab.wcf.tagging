@@ -27,6 +27,7 @@ class TagEditor extends DatabaseObjectEditor {
 	public function addSynonym(Tag $synonym) {
 		// clear up objects with both tags: the target and the synonym
 		// TODO: Optimize this!
+		// TODO: Fix this, sql layout is messed up and PostgreSQL does not support CONCAT (uses '||' instead)
 		$sql = "SELECT 
 				CONCAT(objectTypeID, '-', languageID, '-', objectID, '-', tagID) AS hash
 			FROM

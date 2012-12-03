@@ -30,6 +30,8 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 	 * @see	WCF.EditableItemList._submit()
 	 */
 	_submit: function() {
+		this._super();
+		
 		for (var $i = 0, $length = this._data.length; $i < $length; $i++) {
 			// deleting items leaves crappy indices
 			if (this._data[$i]) {
@@ -78,5 +80,12 @@ WCF.Tagging.TagSearch = WCF.Search.Base.extend({
 	/**
 	 * @see	WCF.Search.Base._className
 	 */
-	_className: 'wcf\\data\\tag\\TagAction'
+	_className: 'wcf\\data\\tag\\TagAction',
+	
+	/**
+	 * @see	WCF.Search.Base.init()
+	 */
+	init: function(searchInput, callback, excludedSearchValues, commaSeperated) {
+		this._super(searchInput, callback, excludedSearchValues, commaSeperated, false);
+	}
 });

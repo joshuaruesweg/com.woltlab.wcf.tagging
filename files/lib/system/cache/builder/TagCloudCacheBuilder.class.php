@@ -5,17 +5,16 @@ use wcf\data\tag\TagCloudTag;
 use wcf\data\tag\Tag;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
-use wcf\util\StringUtil;
 
 /**
  * Caches the tag cloud.
  * 
- * @author 	Marcel Werk
+ * @author	Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.cache.builder
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagCloudCacheBuilder implements ICacheBuilder {
 	/**
@@ -26,18 +25,18 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	
 	/**
 	 * language ids
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $languageIDs = array();
 	
 	/**
 	 * object type ids
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $objectTypeIDs = array();
 
 	/**
-	 * @see wcf\system\cache\builder\CacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\CacheBuilder::getData()
 	 */
 	public function getData(array $cacheResource) {
 		list($cache, $languageIDsStr) = explode('-', $cacheResource['cache']);
@@ -73,9 +72,9 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 		
 		return $languageIDs;
 	}
-
+	
 	protected function getTags() {
-		if (count($this->objectTypeIDs) > 0) {
+		if (!empty($this->objectTypeIDs)) {
 			// get tag ids
 			$tagIDs = array();
 			$conditionBuilder = new PreparedStatementConditionBuilder();
@@ -93,7 +92,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 			}
 			
 			// get tags
-			if (count($tagIDs)) {
+			if (!empty($tagIDs)) {
 				$sql = "SELECT	*
 					FROM	wcf".WCF_N."_tag
 					WHERE	tagID IN (?".(count($tagIDs) > 1 ? str_repeat(',?', count($tagIDs) - 1) : '').")";
@@ -101,7 +100,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 				$statement->execute(array_keys($tagIDs));
 				while ($row = $statement->fetchArray()) {
 					$row['counter'] = $tagIDs[$row['tagID']];
-					$this->tags[StringUtil::toLowerCase($row['name'])] = new TagCloudTag(new Tag(null, $row));
+					$this->tags[$row['name']] = new TagCloudTag(new Tag(null, $row));
 				}
 
 				// sort by counter

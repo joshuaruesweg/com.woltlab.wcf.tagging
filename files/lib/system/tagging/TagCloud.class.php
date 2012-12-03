@@ -6,41 +6,41 @@ use wcf\util\StringUtil;
 /**
  * This class holds a list of tags that can be used for creating a tag cloud.
  * 
- * @author 	Marcel Werk
+ * @author	Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TagCloud {
 	/**
 	 * max font size
-	 * @var integer
+	 * @var	integer
 	 */
 	const MAX_FONT_SIZE = 170;
 	
 	/**
 	 * min font size
-	 * @var integer
+	 * @var	integer
 	 */
 	const MIN_FONT_SIZE = 85;
 	
 	/**
 	 * list of tags
-	 * @var array<wcf\data\tag\TagCloudTag>
+	 * @var	array<wcf\data\tag\TagCloudTag>
 	 */
 	protected $tags = array();
 
 	/**
 	 * max value of tag counter
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $maxCounter = 0;
 
 	/**
 	 * min value of tag counter
-	 * @var integer
+	 * @var	integer
 	 */
 	protected $minCounter = 4294967295;
 	
@@ -57,12 +57,12 @@ class TagCloud {
 	 */
 	public function __construct(array $languageIDs = array()) {
 		$this->languageIDs = $languageIDs;
-		if (!count($this->languageIDs)) $this->languageIDs = array(0);
+		if (empty($this->languageIDs)) $this->languageIDs = array(0);
 		
 		// init cache
 		$this->loadCache();
 	}
-
+	
 	/**
 	 * Loads the tag cloud cache.
 	 */
@@ -75,7 +75,7 @@ class TagCloud {
 	
 	/**
 	 * Gets a list of weighted tags.
-	 *
+	 * 
 	 * @param	integer				$slice
 	 * @return	array<wcf\data\tag\TagCloudTag>	the tags to get
 	 */

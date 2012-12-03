@@ -7,12 +7,12 @@ use wcf\util\StringUtil;
 /**
  * This class provides the function to filter the tag cloud by object types.
  * 
- * @author 	Marcel Werk
+ * @author	Marcel Werk
  * @copyright	2001-2012 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
- * @category 	Community Framework
+ * @category	Community Framework
  */
 class TypedTagCloud extends TagCloud {
 	/**

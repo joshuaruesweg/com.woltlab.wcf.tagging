@@ -14,7 +14,7 @@
 	<category name="wcf.acp.tag">
 		<item name="wcf.acp.tag.add"><![CDATA[Add new tag]]></item>
 		<item name="wcf.acp.tag.edit"><![CDATA[Edit Tag]]></item>
-		<item name="wcf.acp.tag.delete.sure"><![CDATA[Möchten Sie den Tag <span class="badge">„{$tag}&ldquo;</span> wirklich löschen?]]></item>
+		<item name="wcf.acp.tag.delete.sure"><![CDATA[Möchten Sie den Tag <span class="badge">„{$tag}“</span> wirklich löschen?]]></item>
 		
 		<item name="wcf.acp.tag.error.languageID.notFound"><![CDATA[Die gewählte Sprache ist ungültig]]></item>
 		<item name="wcf.acp.tag.languageID"><![CDATA[Language]]></item>
@@ -29,7 +29,7 @@
 	</category>
 	
 	<category name="wcf.tagging">
-		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: &ldquo;{$tag}&rdquo;{/if}]]></item>
+		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: “{$tag}”{/if}]]></item>
 		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>
 		<item name="wcf.tagging.tags.add"><![CDATA[Tags]]></item>
 		<item name="wcf.tagging.tags.description"><![CDATA[You can separate multiple tags by commas.]]></item>

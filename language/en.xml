@@ -14,7 +14,7 @@
 	<category name="wcf.acp.tag">
 		<item name="wcf.acp.tag.add"><![CDATA[Add new tag]]></item>
 		<item name="wcf.acp.tag.edit"><![CDATA[Edit Tag]]></item>
-		<item name="wcf.acp.tag.delete.sure"><![CDATA[Möchten Sie den Tag <span class="badge">„{$tag}“</span> wirklich löschen?]]></item>
+		<item name="wcf.acp.tag.delete.sure"><![CDATA[Are you sure you want to delete the tag <span class="badge">“{$tag}”</span>?]]></item>
 		
 		<item name="wcf.acp.tag.error.languageID.notFound"><![CDATA[Die gewählte Sprache ist ungültig]]></item>
 		<item name="wcf.acp.tag.languageID"><![CDATA[Language]]></item>

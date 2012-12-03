@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="en">
+	<category name="wcf.acp.menu">
+		<item name="wcf.acp.menu.link.tag"><![CDATA[Tags]]></item>
+		<item name="wcf.acp.menu.link.tag.add"><![CDATA[Add new tag]]></item>
+		<item name="wcf.acp.menu.link.tag.list"><![CDATA[List tags]]></item>
+	</category>
+	
 	<category name="wcf.acp.option">
 		<item name="wcf.acp.option.module_tagging"><![CDATA[Tagging]]></item>
 		<item name="wcf.acp.option.module_tagging.description"><![CDATA[Enables the tagging of content.]]></item>
 	</category>
 	
+	<category name="wcf.acp.tag">
+		<item name="wcf.acp.tag.add"><![CDATA[Add new tag]]></item>
+		<item name="wcf.acp.tag.edit"><![CDATA[Edit Tag]]></item>
+		<item name="wcf.acp.tag.delete.sure"><![CDATA[Möchten Sie den Tag <span class="badge">&bdquo;{$tag}&ldquo;</span> wirklich löschen?]]></item>
+		
+		<item name="wcf.acp.tag.error.languageID.notFound"><![CDATA[Die gewählte Sprache ist ungültig]]></item>
+		<item name="wcf.acp.tag.languageID"><![CDATA[Language]]></item>
+		<item name="wcf.acp.tag.list"><![CDATA[List tags]]></item>
+		<item name="wcf.acp.tag.list.search"><![CDATA[Search tags]]></item>
+		<item name="wcf.acp.tag.list.search.query"><![CDATA[Search term]]></item>
+		<item name="wcf.acp.tag.noneAvailable"><![CDATA[No tag has been added yet.]]></item>
+		<item name="wcf.acp.tag.name"><![CDATA[Name]]></item>
+		<item name="wcf.acp.tag.synonyms"><![CDATA[Synonyms]]></item>
+		<item name="wcf.acp.tag.synonymFor"><![CDATA[Synonym for]]></item>
+		<item name="wcf.acp.tag.usageCount"><![CDATA[Usages]]></item>
+	</category>
+	
 	<category name="wcf.tagging">
-		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: &quot;{$tag}&quot;{/if}]]></item>
+		<item name="wcf.tagging.filter"><![CDATA[Filter by tag{if $tag|isset}: &ldquo;{$tag}&rdquo;{/if}]]></item>
 		<item name="wcf.tagging.tags"><![CDATA[Tags]]></item>
 		<item name="wcf.tagging.tags.add"><![CDATA[Tags]]></item>
 		<item name="wcf.tagging.tags.description"><![CDATA[You can separate multiple tags by commas.]]></item>

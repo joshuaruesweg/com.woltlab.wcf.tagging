@@ -40,7 +40,12 @@ class TypedTagCloud extends TagCloud {
 	protected function loadCache() {
 		$cacheName = 'typedTagCloud-'.implode(',', $this->objectTypeIDs).'-'.implode(',', $this->languageIDs);
 		
-		CacheHandler::getInstance()->addResource($cacheName, WCF_DIR.'cache/cache.typedTagCloud-'.StringUtil::getHash(implode(',', $this->objectTypeIDs)).'-'.StringUtil::getHash(implode(',', $this->languageIDs)).'.php', 'wcf\system\cache\builder\TypedTagCloudCacheBuilder', 3600);
+		CacheHandler::getInstance()->addResource(
+			$cacheName,
+			WCF_DIR.'cache/cache.typedTagCloud-'.StringUtil::getHash(implode(',', $this->objectTypeIDs)).'-'.StringUtil::getHash(implode(',', $this->languageIDs)).'.php',
+			'wcf\system\cache\builder\TypedTagCloudCacheBuilder',
+			3600
+		);
 		$this->tags = CacheHandler::getInstance()->get($cacheName);
 	}
 }

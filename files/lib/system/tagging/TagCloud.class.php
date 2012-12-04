@@ -69,7 +69,12 @@ class TagCloud {
 	protected function loadCache() {
 		$cacheName = 'tagCloud-'.implode(',', $this->languageIDs);
 		
-		CacheHandler::getInstance()->addResource($cacheName, WCF_DIR.'cache/cache.tagCloud-'.PACKAGE_ID.'-'.StringUtil::getHash(implode(',', $this->languageIDs)).'.php', 'wcf\system\cache\builder\TagCloudCacheBuilder', 3600);
+		CacheHandler::getInstance()->addResource(
+			$cacheName,
+			WCF_DIR.'cache/cache.tagCloud-'.StringUtil::getHash(implode(',', $this->languageIDs)).'.php',
+			'wcf\system\cache\builder\TagCloudCacheBuilder',
+			3600
+		);
 		$this->tags = CacheHandler::getInstance()->get($cacheName);
 	}
 	

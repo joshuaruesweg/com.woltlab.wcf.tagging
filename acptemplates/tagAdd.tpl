@@ -14,13 +14,21 @@
 	<p class="success">{lang}wcf.global.form.{$action}.success{/lang}</p>	
 {/if}
 
-<div class="contentNavigation">
-	<nav>
-		<ul>
-			<li><a href="{link controller='TagList'}{/link}" title="{lang}wcf.acp.menu.link.tag.list{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/list.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.menu.link.tag.list{/lang}</span></a></li>
-		</ul>
-	</nav>
-</div>
+{hascontent}
+	<div class="contentNavigation">
+		<nav>
+			<ul>
+				{content}
+					{if $__wcf->session->getPermission('admin.tag.canDeleteTag') || $__wcf->session->getPermission('admin.tag.canEditTag')}
+						<li><a href="{link controller='TagList'}{/link}" title="{lang}wcf.acp.menu.link.tag.list{/lang}" class="button"><img src="{@$__wcf->getPath()}icon/list.svg" alt="" class="icon24" /> <span>{lang}wcf.acp.menu.link.tag.list{/lang}</span></a></li>
+					{/if}
+					
+					{event name='contentNavigationButtons'}
+				{/content}
+			</ul>
+		</nav>
+	</div>
+{/hascontent}
 
 <form method="post" action="{if $action == 'add'}{link controller='TagAdd'}{/link}{else}{link controller='TagEdit' id=$tagObj->tagID}{/link}{/if}">
 	<div class="container containerPadding marginTop shadow">

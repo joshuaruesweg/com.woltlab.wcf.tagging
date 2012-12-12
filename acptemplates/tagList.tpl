@@ -16,7 +16,7 @@
 
 {if $items}
 	<form action="{link controller='TagList'}{/link}">
-		<div class="container containerPadding marginTop shadow">
+		<div class="container containerPadding marginTop">
 			<fieldset><legend>{lang}wcf.acp.tag.list.search{/lang}</legend>
 				<dl>
 					<dt><label for="search">{lang}wcf.acp.tag.list.search.query{/lang}</label></dt>
@@ -53,7 +53,7 @@
 </div>
 
 {if $objects|count}
-	<div class="tabularBox tabularBoxTitle marginTop shadow">
+	<div class="tabularBox tabularBoxTitle marginTop">
 		<hgroup>
 			<h1>{lang}wcf.acp.tag.list{/lang} <span class="badge badgeInverse" title="{lang}wcf.acp.tag.list.count{/lang}">{#$items}</span></h1>
 		</hgroup>

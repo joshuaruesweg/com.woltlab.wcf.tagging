@@ -31,7 +31,7 @@
 {/hascontent}
 
 <form method="post" action="{if $action == 'add'}{link controller='TagAdd'}{/link}{else}{link controller='TagEdit' id=$tagObj->tagID}{/link}{/if}">
-	<div class="container containerPadding marginTop shadow">
+	<div class="container containerPadding marginTop">
 		<fieldset>
 			<legend>{lang}wcf.global.form.data{/lang}</legend>
 			

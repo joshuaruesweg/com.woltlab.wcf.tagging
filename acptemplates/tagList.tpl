@@ -3,7 +3,7 @@
 <script type="text/javascript">
 	//<![CDATA[
 	$(function() {
-		new WCF.Action.Delete('wcf\\data\\tag\\TagAction', $('.jsTagRow'));
+		new WCF.Action.Delete('wcf\\data\\tag\\TagAction', '.jsTagRow');
 	});
 	//]]>
 </script>

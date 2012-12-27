@@ -38,7 +38,7 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	protected $permissionsUpdate = array('admin.content.tag.canEditTag');
 	
 	/**
-	 * @see	wcf\data\IPositionAction::validateGetSearchResultList()
+	 * @see	wcf\data\ISearchAction::validateGetSearchResultList()
 	 */
 	public function validateGetSearchResultList() {
 		if (!isset($this->parameters['data']['searchString'])) {
@@ -51,7 +51,7 @@ class TagAction extends AbstractDatabaseObjectAction implements ISearchAction {
 	}
 	
 	/**
-	 * @see	wcf\data\IPositionAction::getSearchResultList()
+	 * @see	wcf\data\ISearchAction::getSearchResultList()
 	 */
 	public function getSearchResultList() {
 		$searchString = $this->parameters['data']['searchString'];

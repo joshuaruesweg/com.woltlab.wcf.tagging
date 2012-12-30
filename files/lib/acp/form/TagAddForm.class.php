@@ -3,6 +3,7 @@ namespace wcf\acp\form;
 use wcf\data\tag\Tag;
 use wcf\data\tag\TagAction;
 use wcf\data\tag\TagEditor;
+use wcf\form\AbstractForm;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
 use wcf\system\WCF;
@@ -19,9 +20,9 @@ use wcf\util\StringUtil;
  * @subpackage	acp.form
  * @category	Community Framework
  */
-class TagAddForm extends ACPForm {
+class TagAddForm extends AbstractForm {
 	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
 	public $activeMenuItem = 'wcf.acp.menu.link.tag.add';
 	

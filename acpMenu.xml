@@ -6,14 +6,14 @@
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.tag.list">
-			<link>index.php/TagList/</link>
+			<controller><![CDATA[wcf\acp\page\TagListPage]]></controller>
 			<parent>wcf.acp.menu.link.tag</parent>
 			<permissions>admin.content.tag.canEditTag,admin.content.tag.canDeleteTag</permissions>
 			<showorder>1</showorder>
 		</acpmenuitem>
 		
 		<acpmenuitem name="wcf.acp.menu.link.tag.add">
-			<link>index.php/TagAdd/</link>
+			<controller><![CDATA[wcf\acp\form\TagAddForm]]></controller>
 			<parent>wcf.acp.menu.link.tag</parent>
 			<permissions>admin.content.tag.canAddTag</permissions>
 			<showorder>2</showorder>

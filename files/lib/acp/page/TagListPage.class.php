@@ -1,7 +1,6 @@
 <?php
 namespace wcf\acp\page;
 use wcf\page\SortablePage;
-use wcf\system\menu\acp\ACPMenu;
 use wcf\system\WCF;
 use wcf\util\StringUtil;
 
@@ -16,6 +15,11 @@ use wcf\util\StringUtil;
  * @category	Community Framework
  */
 class TagListPage extends SortablePage {
+	/**
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
+	 */
+	public $activeMenuItem = 'wcf.acp.menu.link.tag.list';
+	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
 	 */
@@ -78,15 +82,5 @@ class TagListPage extends SortablePage {
 		if ($this->search !== '') {
 			$this->objectList->getConditionBuilder()->add('tag.name LIKE ?', array($this->search.'%'));
 		}
-	}
-	
-	/**
-	 * @see	wcf\page\IPage::show()
-	 */
-	public function show() {
-		// enable menu item
-		ACPMenu::getInstance()->setActiveMenuItem('wcf.acp.menu.link.tag.list');
-		
-		parent::show();
 	}
 }

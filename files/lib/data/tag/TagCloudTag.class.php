@@ -4,9 +4,9 @@ use wcf\data\DatabaseObjectDecorator;
 
 /**
  * Represents a tag in a tag cloud.
- *
+ * 
  * @author	Marcel Werk
- * @copyright	2009-2012 WoltLab GmbH
+ * @copyright	2009-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag
@@ -19,7 +19,7 @@ class TagCloudTag extends DatabaseObjectDecorator {
 	protected static $baseClass = 'wcf\data\tag\Tag';
 	
 	/**
-	 * Size of tag in a weighted list
+	 * size of the tag in a weighted list
 	 * @var	double
 	 */
 	protected $size = 0.0;
@@ -27,16 +27,16 @@ class TagCloudTag extends DatabaseObjectDecorator {
 	/**
 	 * Sets the size of the tag.
 	 * 
-	 * @param 	double		$size
+	 * @para	double		$size
 	 */
 	public function setSize($size) {
 		$this->size = $size;
 	}
-
+	
 	/**
-	 * Gets the size of the tag.
-	 *
-	 * @return 	double
+	 * Returns the size of the tag.
+	 * 
+	 * @return	double
 	 */
 	public function getSize() {
 		return $this->size;

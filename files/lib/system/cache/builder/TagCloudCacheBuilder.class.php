@@ -1,8 +1,8 @@
 <?php
 namespace wcf\system\cache\builder;
 use wcf\data\object\type\ObjectTypeCache;
-use wcf\data\tag\TagCloudTag;
 use wcf\data\tag\Tag;
+use wcf\data\tag\TagCloudTag;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
 
@@ -10,7 +10,7 @@ use wcf\system\WCF;
  * Caches the tag cloud.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.cache.builder
@@ -34,12 +34,12 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	 * @var	integer
 	 */
 	protected $objectTypeIDs = array();
-
+	
 	/**
 	 * @see	wcf\system\cache\builder\CacheBuilder::getData()
 	 */
 	public function getData(array $cacheResource) {
-		list($cache, $languageIDsStr) = explode('-', $cacheResource['cache']);
+		list(, $languageIDsStr) = explode('-', $cacheResource['cache']);
 		$this->languageIDs = $this->parseLanguageIDs($languageIDsStr);
 		
 		// get all taggable types
@@ -102,7 +102,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 					$row['counter'] = $tagIDs[$row['tagID']];
 					$this->tags[$row['name']] = new TagCloudTag(new Tag(null, $row));
 				}
-
+				
 				// sort by counter
 				uasort($this->tags, array('self', 'compareTags'));
 			}

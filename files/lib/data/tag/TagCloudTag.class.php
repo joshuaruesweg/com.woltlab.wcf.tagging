@@ -27,7 +27,7 @@ class TagCloudTag extends DatabaseObjectDecorator {
 	/**
 	 * Sets the size of the tag.
 	 * 
-	 * @para	double		$size
+	 * @param	double		$size
 	 */
 	public function setSize($size) {
 		$this->size = $size;

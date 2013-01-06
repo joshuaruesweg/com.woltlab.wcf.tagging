@@ -152,7 +152,7 @@ class TagEngine extends SingletonFactory {
 	 * @param	string		$objectType
 	 * @return	integer
 	 */
-	protected function getObjectTypeID($objectType) {
+	public function getObjectTypeID($objectType) {
 		// get object type
 		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
 		if ($objectTypeObj === null) {

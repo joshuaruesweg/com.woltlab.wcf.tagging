@@ -75,13 +75,6 @@ class Tag extends DatabaseObject implements IRouteController {
 	}
 	
 	/**
-	 * @see	wcf\system\request\IRouteController::getID()
-	 */
-	public function getID() {
-		return $this->tagID;
-	}
-	
-	/**
 	 * @see	wcf\system\request\IRouteController::getTitle()
 	 */
 	public function getTitle() {

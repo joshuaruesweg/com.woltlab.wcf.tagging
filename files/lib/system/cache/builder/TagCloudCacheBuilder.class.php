@@ -40,7 +40,7 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	 */
 	public function getData(array $cacheResource) {
 		list(, $languageIDsStr) = explode('-', $cacheResource['cache']);
-		$this->languageIDs = $this->parseLanguageIDs($languageIDsStr);
+		$this->languageIDs = explode(',', $languageIDsStr);
 		
 		// get all taggable types
 		$objectTypes = ObjectTypeCache::getInstance()->getObjectTypes('com.woltlab.wcf.tagging.taggableObject');
@@ -52,25 +52,6 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 		$this->getTags();
 		
 		return $this->tags;
-	}
-	
-	/**
-	 * Parses a comma-seperated list of language ids. If one given language
-	 * ids evaluates to '0' all ids will be discarded.
-	 * 
-	 * @param	string		$languageIDsStr
-	 * @return	array<integer>
-	 */
-	protected function parseLanguageIDs($languageIDsStr) {
-		$languageIDs = explode(',', $languageIDsStr);
-		
-		// handle special '0' value
-		if (in_array(0, $languageIDs)) {
-			// discard all language ids
-			$languageIDs = array();
-		}
-		
-		return $languageIDs;
 	}
 	
 	protected function getTags() {

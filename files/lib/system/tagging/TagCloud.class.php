@@ -1,6 +1,7 @@
 <?php
 namespace wcf\system\tagging;
 use wcf\system\cache\CacheHandler;
+use wcf\system\language\LanguageFactory;
 use wcf\util\StringUtil;
 
 /**
@@ -57,7 +58,9 @@ class TagCloud {
 	 */
 	public function __construct(array $languageIDs = array()) {
 		$this->languageIDs = $languageIDs;
-		if (empty($this->languageIDs)) $this->languageIDs = array(0);
+		if (empty($this->languageIDs)) {
+			$this->languageIDs = array_keys(LanguageFactory::getInstance()->getLanguages());
+		}
 		
 		// init cache
 		$this->loadCache();

@@ -10,13 +10,13 @@ use wcf\system\WCF;
  * Caches the tag cloud.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.cache.builder
  * @category	Community Framework
  */
-class TagCloudCacheBuilder implements ICacheBuilder {
+class TagCloudCacheBuilder extends AbstractCacheBuilder {
 	/**
 	 * list of tags
 	 * @var	array<wcf\data\tag\TagCloudTag>
@@ -30,17 +30,21 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	protected $languageIDs = array();
 	
 	/**
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::$maxLifetime
+	 */
+	protected $maxLifetime = 3600;
+	
+	/**
 	 * object type ids
 	 * @var	integer
 	 */
 	protected $objectTypeIDs = array();
-
+	
 	/**
-	 * @see	wcf\system\cache\builder\CacheBuilder::getData()
+	 * @see	wcf\system\cache\builder\AbstractCacheBuilder::rebuild()
 	 */
-	public function getData(array $cacheResource) {
-		list($cache, $languageIDsStr) = explode('-', $cacheResource['cache']);
-		$this->languageIDs = $this->parseLanguageIDs($languageIDsStr);
+	protected function rebuild(array $parameters) {
+		$this->languageIDs = $this->parseLanguageIDs($parameters);
 		
 		// get all taggable types
 		$objectTypes = ObjectTypeCache::getInstance()->getObjectTypes('com.woltlab.wcf.tagging.taggableObject');
@@ -55,24 +59,24 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 	}
 	
 	/**
-	 * Parses a comma-seperated list of language ids. If one given language
-	 * ids evaluates to '0' all ids will be discarded.
+	 * Parses a list of language ids. If one given language id evaluates to '0' all ids will be discarded.
 	 * 
-	 * @param	string		$languageIDsStr
+	 * @param	array<integer>		$parameters
 	 * @return	array<integer>
 	 */
-	protected function parseLanguageIDs($languageIDsStr) {
-		$languageIDs = explode(',', $languageIDsStr);
-		
+	protected function parseLanguageIDs(array $parameters) {
 		// handle special '0' value
-		if (in_array(0, $languageIDs)) {
+		if (in_array(0, $parameters)) {
 			// discard all language ids
-			$languageIDs = array();
+			$parameters = array();
 		}
 		
-		return $languageIDs;
+		return $parameters;
 	}
 	
+	/**
+	 * Reads associated tags.
+	 */
 	protected function getTags() {
 		if (!empty($this->objectTypeIDs)) {
 			// get tag ids
@@ -109,6 +113,13 @@ class TagCloudCacheBuilder implements ICacheBuilder {
 		}
 	}
 	
+	/**
+	 * Compares the weight between two tags.
+	 * 
+	 * @param	wcf\data\tag\TagCloudTag	$tagA
+	 * @param	wcf\data\tag\TagCloudTag	$tagB
+	 * @return	integer
+	 */
 	protected static function compareTags($tagA, $tagB) {
 		if ($tagA->counter > $tagB->counter) return -1;
 		if ($tagA->counter < $tagB->counter) return 1;

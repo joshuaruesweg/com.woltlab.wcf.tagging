@@ -1,13 +1,13 @@
 <?php
 namespace wcf\system\tagging;
-use wcf\system\cache\CacheHandler;
+use wcf\system\cache\builder\TagCloudCacheBuilder;
 use wcf\util\StringUtil;
 
 /**
  * This class holds a list of tags that can be used for creating a tag cloud.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
@@ -67,15 +67,7 @@ class TagCloud {
 	 * Loads the tag cloud cache.
 	 */
 	protected function loadCache() {
-		$cacheName = 'tagCloud-'.implode(',', $this->languageIDs);
-		
-		CacheHandler::getInstance()->addResource(
-			$cacheName,
-			WCF_DIR.'cache/cache.tagCloud-'.StringUtil::getHash(implode(',', $this->languageIDs)).'.php',
-			'wcf\system\cache\builder\TagCloudCacheBuilder',
-			3600
-		);
-		$this->tags = CacheHandler::getInstance()->get($cacheName);
+		$this->tags = TagCloudCacheBuilder::getInstance()->getData($this->languageIDs);
 	}
 	
 	/**

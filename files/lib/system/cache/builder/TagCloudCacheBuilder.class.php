@@ -1,8 +1,8 @@
 <?php
 namespace wcf\system\cache\builder;
 use wcf\data\object\type\ObjectTypeCache;
-use wcf\data\tag\TagCloudTag;
 use wcf\data\tag\Tag;
+use wcf\data\tag\TagCloudTag;
 use wcf\system\database\util\PreparedStatementConditionBuilder;
 use wcf\system\WCF;
 
@@ -106,7 +106,7 @@ class TagCloudCacheBuilder extends AbstractCacheBuilder {
 					$row['counter'] = $tagIDs[$row['tagID']];
 					$this->tags[$row['name']] = new TagCloudTag(new Tag(null, $row));
 				}
-
+				
 				// sort by counter
 				uasort($this->tags, array('self', 'compareTags'));
 			}

@@ -4,6 +4,7 @@ use wcf\data\tag\Tag;
 use wcf\data\tag\TagAction;
 use wcf\data\tag\TagEditor;
 use wcf\data\tag\TagList;
+use wcf\form\AbstractForm;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\WCF;
 
@@ -19,9 +20,9 @@ use wcf\system\WCF;
  */
 class TagEditForm extends TagAddForm {
 	/**
-	 * @see	wcf\acp\form\ACPForm::$activeMenuItem
+	 * @see	wcf\page\AbstractPage::$activeMenuItem
 	 */
-	public $activeMenuItem = 'wcf.acp.menu.link.tag.list';
+	public $activeMenuItem = 'wcf.acp.menu.link.tag';
 	
 	/**
 	 * @see	wcf\page\AbstractPage::$neededPermissions
@@ -57,7 +58,7 @@ class TagEditForm extends TagAddForm {
 	 * @see	wcf\form\IForm::save()
 	 */
 	public function save() {
-		ACPForm::save();
+		AbstractForm::save();
 		
 		// update tag
 		$this->objectAction = new TagAction(array($this->tagID), 'update', array('data' => array(

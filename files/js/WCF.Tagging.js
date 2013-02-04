@@ -24,6 +24,7 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 		
 		this._data = [ ];
 		this._search = new WCF.Tagging.TagSearch(this._searchInput, $.proxy(this.addItem, this));
+		this._itemList.addClass('tagList');
 	},
 	
 	/**
@@ -38,6 +39,16 @@ WCF.Tagging.TagList = WCF.EditableItemList.extend({
 				$('<input type="hidden" name="tags[]" value="' + this._data[$i] + '" />').appendTo(this._form);
 			}
 		};
+	},
+	
+	/**
+	 * @see	WCF.EditableItemList.addItem()
+	 */
+	addItem: function(data) {
+		var result = this._super(data);
+		$(this._itemList).find('.badge:not(tag)').addClass('tag');
+		
+		return result;
 	},
 	
 	/**

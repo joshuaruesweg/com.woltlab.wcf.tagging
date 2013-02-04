@@ -105,6 +105,25 @@ class TagEngine extends SingletonFactory {
 	}
 	
 	/**
+	 * Deletes all tags assigned to given tagged objects.
+	 *
+	 * @param	string			$objectType
+	 * @param	array<integer>		$objectIDs
+	 */
+	public function deleteObjects($objectType, array $objectIDs) {
+		$objectTypeID = $this->getObjectTypeID($objectType);
+	
+		$conditionsBuilder = new PreparedStatementConditionBuilder();
+		$conditionsBuilder->add('objectTypeID = ?', array($objectTypeID));
+		$conditionsBuilder->add('objectID IN (?)', array($objectIDs));
+		
+		$sql = "DELETE FROM	wcf".WCF_N."_tag_to_object
+			".$conditionsBuilder;
+		$statement = WCF::getDB()->prepareStatement($sql);
+		$statement->execute($conditionsBuilder->getParameters());
+	}
+	
+	/**
 	 * Returns all tags set for given object.
 	 * 
 	 * @param	string		$objectType
@@ -152,7 +171,7 @@ class TagEngine extends SingletonFactory {
 	 * @param	string		$objectType
 	 * @return	integer
 	 */
-	protected function getObjectTypeID($objectType) {
+	public function getObjectTypeID($objectType) {
 		// get object type
 		$objectTypeObj = ObjectTypeCache::getInstance()->getObjectTypeByName('com.woltlab.wcf.tagging.taggableObject', $objectType);
 		if ($objectTypeObj === null) {

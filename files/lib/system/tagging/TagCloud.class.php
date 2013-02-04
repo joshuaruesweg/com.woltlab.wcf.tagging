@@ -1,11 +1,7 @@
 <?php
 namespace wcf\system\tagging;
-<<<<<<< HEAD
 use wcf\system\cache\builder\TagCloudCacheBuilder;
-=======
-use wcf\system\cache\CacheHandler;
 use wcf\system\language\LanguageFactory;
->>>>>>> c55dccfba2ef851b4ae5f5947bbc8c95131a962c
 use wcf\util\StringUtil;
 
 /**

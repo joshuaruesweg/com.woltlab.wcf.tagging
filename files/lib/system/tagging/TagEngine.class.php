@@ -12,7 +12,7 @@ use wcf\system\WCF;
  * Manages the tagging of objects.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
@@ -24,7 +24,7 @@ class TagEngine extends SingletonFactory {
 	 * 
 	 * @param	string		$objectType
 	 * @param	integer		$objectID
-	 * @param 	array 		$tags
+	 * @param	array		$tags
 	 * @param	integer		$languageID
 	 * @param	boolean		$replace
 	 */
@@ -83,7 +83,7 @@ class TagEngine extends SingletonFactory {
 	
 	/**
 	 * Deletes all tags assigned to given tagged object.
-	 *
+	 * 
 	 * @param	string		$objectType
 	 * @param	integer		$objectID
 	 * @param	integer		$languageID
@@ -106,13 +106,13 @@ class TagEngine extends SingletonFactory {
 	
 	/**
 	 * Deletes all tags assigned to given tagged objects.
-	 *
+	 * 
 	 * @param	string			$objectType
 	 * @param	array<integer>		$objectIDs
 	 */
 	public function deleteObjects($objectType, array $objectIDs) {
 		$objectTypeID = $this->getObjectTypeID($objectType);
-	
+		
 		$conditionsBuilder = new PreparedStatementConditionBuilder();
 		$conditionsBuilder->add('objectTypeID = ?', array($objectTypeID));
 		$conditionsBuilder->add('objectID IN (?)', array($objectIDs));
@@ -126,9 +126,9 @@ class TagEngine extends SingletonFactory {
 	/**
 	 * Returns all tags set for given object.
 	 * 
-	 * @param	string		$objectType
-	 * @param	integer		$objectID
-	 * @param	array<integer>	$languageIDs
+	 * @param	string			$objectType
+	 * @param	integer			$objectID
+	 * @param	array<integer>		$languageIDs
 	 * @return	array<wcf\data\tag\Tag>
 	 */
 	public function getObjectTags($objectType, $objectID, array $languageIDs = array()) {
@@ -166,7 +166,7 @@ class TagEngine extends SingletonFactory {
 	}
 	
 	/**
-	 * Returns object type id by object type name.
+	 * Returns id of the object type with the given name.
 	 * 
 	 * @param	string		$objectType
 	 * @return	integer

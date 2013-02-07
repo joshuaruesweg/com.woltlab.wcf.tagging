@@ -21,7 +21,7 @@ class TypedTagCloudCacheBuilder extends TagCloudCacheBuilder {
 		
 		// get tags
 		$this->getTags();
-
+		
 		return $this->tags;
 	}
 }

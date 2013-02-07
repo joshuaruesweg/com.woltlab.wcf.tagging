@@ -5,7 +5,7 @@ namespace wcf\system\tagging;
  * Any tagged object has to implement this interface.
  * 
  * @author	Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	system.tagging
@@ -21,8 +21,8 @@ interface ITagged {
 	
 	/**
 	 * Gets the taggable type of this tagged object.
-	 *
-	 * @return	wcf\system\tagging\ITaggable 	the taggable to get
+	 * 
+	 * @return	wcf\system\tagging\ITaggable
 	 */
 	public function getTaggable();
 }

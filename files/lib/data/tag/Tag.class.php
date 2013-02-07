@@ -7,9 +7,9 @@ use wcf\util\ArrayUtil;
 
 /**
  * Represents a tag.
- *
+ * 
  * @author	Marcel Werk
- * @copyright	2009-2012 WoltLab GmbH
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag
@@ -27,11 +27,11 @@ class Tag extends DatabaseObject implements IRouteController {
 	protected static $databaseTableIndexName = 'tagID';
 	
 	/**
-	 * Checks whether a tag with the given name already exists in the database.
+	 * Return the tag with the given name or null of no such tag exists.
 	 *
 	 * @param	string		$name
 	 * @param	integer		$languageID
-	 * @return	mixed		null, if no tag with the given name exist or an instance of Tag
+	 * @return	mixed
 	 */
 	public static function getTag($name, $languageID = 0) {
 		$sql = "SELECT	*
@@ -48,7 +48,7 @@ class Tag extends DatabaseObject implements IRouteController {
 	
 	/**
 	 * Takes a string of comma separated tags and splits it into an array.
-	 *
+	 * 
 	 * @param	string		$tags
 	 * @param	string		$separators
 	 * @return	array<string>
@@ -59,7 +59,7 @@ class Tag extends DatabaseObject implements IRouteController {
 	
 	/**
 	 * Takes a list of tags and builds a comma separated string from it.
-	 *
+	 * 
 	 * @param	array<mixed>	$tags
 	 * @param	string		$separator
 	 * @return	string
@@ -75,7 +75,7 @@ class Tag extends DatabaseObject implements IRouteController {
 	}
 	
 	/**
-	 * @see	wcf\system\request\IRouteController::getTitle()
+	 * @see	wcf\data\ITitledObject::getTitle()
 	 */
 	public function getTitle() {
 		return $this->name;

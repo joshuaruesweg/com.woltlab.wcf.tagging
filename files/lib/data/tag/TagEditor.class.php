@@ -5,9 +5,9 @@ use wcf\system\WCF;
 
 /**
  * Provides functions to edit tags.
- *
- * @author	Tim Düsterhus, Marcel Werk
- * @copyright	2001-2012 WoltLab GmbH
+ * 
+ * @author	Tim Duesterhus, Marcel Werk
+ * @copyright	2001-2013 WoltLab GmbH
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package	com.woltlab.wcf.tagging
  * @subpackage	data.tag

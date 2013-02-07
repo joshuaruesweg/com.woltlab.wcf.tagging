@@ -31,13 +31,13 @@ class TagCloud {
 	 * @var	array<wcf\data\tag\TagCloudTag>
 	 */
 	protected $tags = array();
-
+	
 	/**
 	 * max value of tag counter
 	 * @var	integer
 	 */
 	protected $maxCounter = 0;
-
+	
 	/**
 	 * min value of tag counter
 	 * @var	integer
@@ -101,10 +101,10 @@ class TagCloud {
 	}
 	
 	/**
-	 * Calculate the size of the tag in a weighted list
-	 *
-	 * @param	integer 	$counter 	the number of times a tag has been used
-	 * @return	double 				the size to calculate
+	 * Returns the size of a tag with given number of uses for a weighted list.
+	 * 
+	 * @param	integer		$counter
+	 * @return	double
 	 */
 	private function calculateSize($counter) {
 		if ($this->maxCounter == $this->minCounter) {

@@ -2,7 +2,6 @@
 namespace wcf\system\tagging;
 use wcf\data\object\type\ObjectTypeCache;
 use wcf\system\cache\builder\TypedTagCloudCacheBuilder;
-use wcf\util\StringUtil;
 
 /**
  * This class provides the function to filter the tag cloud by object types.

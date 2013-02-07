@@ -2,7 +2,6 @@
 namespace wcf\system\tagging;
 use wcf\system\cache\builder\TagCloudCacheBuilder;
 use wcf\system\language\LanguageFactory;
-use wcf\util\StringUtil;
 
 /**
  * This class holds a list of tags that can be used for creating a tag cloud.

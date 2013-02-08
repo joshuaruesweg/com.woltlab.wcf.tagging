@@ -87,12 +87,6 @@ class TagAddForm extends AbstractForm {
 			throw new UserInputException('name');
 		}
 		
-		// check for duplicates
-		$tag = Tag::getTag($this->name, $this->languageID);
-		if ($tag !== null && (!isset($this->tagObj) || $tag->tagID != $this->tagObj->tagID)) {
-			throw new UserInputException('name', 'duplicate');
-		}
-		
 		// validate language
 		if (empty($this->availableLanguages)) {
 			// force default language id
@@ -102,6 +96,12 @@ class TagAddForm extends AbstractForm {
 			if (!isset($this->availableLanguages[$this->languageID])) {
 				throw new UserInputException('languageID', 'notFound');
 			}
+		}
+		
+		// check for duplicates
+		$tag = Tag::getTag($this->name, $this->languageID);
+		if ($tag !== null && (!isset($this->tagObj) || $tag->tagID != $this->tagObj->tagID)) {
+			throw new UserInputException('name', 'duplicate');
 		}
 		
 		// validate synonyms
